@@ -1,0 +1,3 @@
+[submodule "Godot-OpenXR-Startup"]
+	path = Godot-OpenXR-Startup
+	url = https://github.com/AyOhEe/Godot-OpenXR-Startup.git

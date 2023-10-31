@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyjaj2osk3uy1"]
+
+[ext_resource type="Script" path="res://Godot-VR-Body-Solver/Body Solver/BodySolver.cs" id="1_m1xbn"]
+[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://Godot-VR-Body-Solver/Body Solver/Central Section.tres" id="2_4gph6"]
+[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://Godot-VR-Body-Solver/Body Solver/Left Side.tres" id="3_ud6nm"]
+[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://Godot-VR-Body-Solver/Body Solver/Right Side.tres" id="4_petep"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_d2i5w"]
+material = ExtResource("2_4gph6")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereMesh" id="SphereMesh_acf4p"]
+material = ExtResource("3_ud6nm")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereMesh" id="SphereMesh_bv6to"]
+material = ExtResource("4_petep")
+radius = 0.02
+height = 0.04
+
+[node name="BodySolver" type="Node3D"]
+script = ExtResource("1_m1xbn")
+
+[node name="Skeleton" type="Node3D" parent="."]
+
+[node name="Eyes" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skeleton/Eyes"]
+mesh = SubResource("SphereMesh_d2i5w")
+
+[node name="Head" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Skeleton/Head"]
+mesh = SubResource("SphereMesh_d2i5w")
+skeleton = NodePath("../../Eyes")
+
+[node name="Chest" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Skeleton/Chest"]
+mesh = SubResource("SphereMesh_d2i5w")
+skeleton = NodePath("../../Eyes")
+
+[node name="Spine" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Skeleton/Spine"]
+mesh = SubResource("SphereMesh_d2i5w")
+skeleton = NodePath("../../Eyes")
+
+[node name="Pelvis" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Skeleton/Pelvis"]
+mesh = SubResource("SphereMesh_d2i5w")
+skeleton = NodePath("../../Eyes")
+
+[node name="LeftClavicle" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Skeleton/LeftClavicle"]
+mesh = SubResource("SphereMesh_acf4p")
+skeleton = NodePath("../../Eyes")
+
+[node name="LeftShoulder" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Skeleton/LeftShoulder"]
+mesh = SubResource("SphereMesh_acf4p")
+skeleton = NodePath("../../Eyes")
+
+[node name="LeftElbow" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Skeleton/LeftElbow"]
+mesh = SubResource("SphereMesh_acf4p")
+skeleton = NodePath("../../Eyes")
+
+[node name="LeftWrist" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Skeleton/LeftWrist"]
+mesh = SubResource("SphereMesh_acf4p")
+skeleton = NodePath("../../Eyes")
+
+[node name="RightClavicle" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Skeleton/RightClavicle"]
+mesh = SubResource("SphereMesh_bv6to")
+skeleton = NodePath("../../Eyes")
+
+[node name="RightShoulder" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="Skeleton/RightShoulder"]
+mesh = SubResource("SphereMesh_bv6to")
+skeleton = NodePath("../../Eyes")
+
+[node name="RightElbow" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="Skeleton/RightElbow"]
+mesh = SubResource("SphereMesh_bv6to")
+skeleton = NodePath("../../Eyes")
+
+[node name="RightWrist" type="Node3D" parent="Skeleton"]
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="Skeleton/RightWrist"]
+mesh = SubResource("SphereMesh_bv6to")
+skeleton = NodePath("../../Eyes")
