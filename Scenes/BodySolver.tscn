@@ -1,27 +1,27 @@
 [gd_scene load_steps=8 format=3 uid="uid://dyjaj2osk3uy1"]
 
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Body Solver/BodySolver.cs" id="1_m1xbn"]
-[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Body Solver/Central Section.tres" id="2_4gph6"]
-[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Body Solver/Left Side.tres" id="3_ud6nm"]
-[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://addons/Godot-VR-Body-Solver/Body Solver/Right Side.tres" id="4_petep"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/BodySolver.cs" id="1_jfvhn"]
+[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Materials/Central Section.tres" id="2_d3e4e"]
+[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Materials/Left Side.tres" id="3_rrgs8"]
+[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://addons/Godot-VR-Body-Solver/Materials/Right Side.tres" id="4_gmj8o"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_d2i5w"]
-material = ExtResource("2_4gph6")
+material = ExtResource("2_d3e4e")
 radius = 0.02
 height = 0.04
 
 [sub_resource type="SphereMesh" id="SphereMesh_acf4p"]
-material = ExtResource("3_ud6nm")
+material = ExtResource("3_rrgs8")
 radius = 0.02
 height = 0.04
 
 [sub_resource type="SphereMesh" id="SphereMesh_bv6to"]
-material = ExtResource("4_petep")
+material = ExtResource("4_gmj8o")
 radius = 0.02
 height = 0.04
 
 [node name="BodySolver" type="Node3D"]
-script = ExtResource("1_m1xbn")
+script = ExtResource("1_jfvhn")
 
 [node name="Skeleton" type="Node3D" parent="."]
 
