@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bulgsfrhhi0dk"]
 
 [ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_wk18c"]
-[ext_resource type="Environment" uid="uid://vtkujg76uwg2" path="res://Project-exclusive/Nicer Sky.tres" id="2_6kehq"]
+[ext_resource type="Environment" uid="uid://vtkujg76uwg2" path="res://Nicer Sky.tres" id="2_6kehq"]
 [ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
-[ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://Godot-VR-Body-Solver/Body Solver/BodySolver.tscn" id="4_seuei"]
+[ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Body Solver/BodySolver.tscn" id="4_seuei"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuoaf"]
 albedo_color = Color(0.152941, 0.152941, 0.152941, 1)
@@ -27,16 +27,20 @@ shadow_enabled = true
 [node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
 CameraRig = NodePath("../CameraRig")
 
-[node name="BodySolver - 0_5" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+[node name="BodySolver - Forward" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, -2)
 CameraRig = NodePath("../CameraRig")
 
-[node name="BodySolver - 1" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3, 0, -3)
+[node name="BodySolver - Back" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 0, 0, 2)
 CameraRig = NodePath("../CameraRig")
 
-[node name="BodySolver - 2" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 0, -3)
+[node name="BodySolver - Right" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
+transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, 2, 0, 0)
+CameraRig = NodePath("../CameraRig")
+
+[node name="BodySolver - Left" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
+transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, -2, 0, 0)
 CameraRig = NodePath("../CameraRig")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
