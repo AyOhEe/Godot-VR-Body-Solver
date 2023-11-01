@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bulgsfrhhi0dk"]
 
-[ext_resource type="Script" path="res://Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_wk18c"]
+[ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_wk18c"]
 [ext_resource type="Environment" uid="uid://vtkujg76uwg2" path="res://Project-exclusive/Nicer Sky.tres" id="2_6kehq"]
-[ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
+[ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
 [ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://Godot-VR-Body-Solver/Body Solver/BodySolver.tscn" id="4_seuei"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuoaf"]

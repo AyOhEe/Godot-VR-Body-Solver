@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dyjaj2osk3uy1"]
 
-[ext_resource type="Script" path="res://Godot-VR-Body-Solver/Body Solver/BodySolver.cs" id="1_m1xbn"]
-[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://Godot-VR-Body-Solver/Body Solver/Central Section.tres" id="2_4gph6"]
-[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://Godot-VR-Body-Solver/Body Solver/Left Side.tres" id="3_ud6nm"]
-[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://Godot-VR-Body-Solver/Body Solver/Right Side.tres" id="4_petep"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Body Solver/BodySolver.cs" id="1_m1xbn"]
+[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Body Solver/Central Section.tres" id="2_4gph6"]
+[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Body Solver/Left Side.tres" id="3_ud6nm"]
+[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://addons/Godot-VR-Body-Solver/Body Solver/Right Side.tres" id="4_petep"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_d2i5w"]
 material = ExtResource("2_4gph6")
