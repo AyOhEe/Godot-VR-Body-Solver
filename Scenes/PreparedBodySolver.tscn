@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo3f3lg1xqgqb"]
+
+[ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Scenes/BaseBodySolver.tscn" id="1_sq6v5"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="5_iyhxi"]
+
+[node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "LWristSolver", "RWristSolver") instance=ExtResource("1_sq6v5")]
+_BodyPartSolvers = [NodePath("Solvers/CameraRigSolver")]
+EyesSolver = NodePath("Solvers/CameraRigSolver")
+LWristSolver = NodePath("Solvers/CameraRigSolver")
+RWristSolver = NodePath("Solvers/CameraRigSolver")
+
+[node name="Solvers" type="Node" parent="." index="0"]
+
+[node name="CameraRigSolver" type="Node" parent="Solvers" index="0"]
+script = ExtResource("5_iyhxi")

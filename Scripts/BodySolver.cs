@@ -1,57 +1,71 @@
 using Godot;
+using Godot.Collections;
 using System;
 
-public partial class BodySolver : Node3D
+interface IFullbodySolver :
+    IEyesSolver,
+    INeckSolver,
+    IChestSolver,
+    ISpineSolver,
+    IRHipsSolver,
+    ILHipsSolver,
+
+    ILShoulderSolver,
+    ILElbowSolver,
+    ILWristSolver,
+
+    IRShoulderSolver,
+    IRElbowSolver,
+    IRWristSolver,
+
+    ILKneeSolver,
+    ILAnkleSolver,
+    ILToeSolver,
+    ILToeEndSolver,
+
+    IRKneeSolver,
+    IRAnkleSolver,
+    IRToeSolver,
+    IRToeEndSolver
+{ }
+
+public partial class BodySolver : Node, IFullbodySolver
 {
-	[Export]
-	//The CameraRig this BodySolver will solve for
-	private CameraRig CameraRig;
+    //The CameraRig this BodySolver will solve for
+    [Export] public CameraRig CameraRig;
+	//the solvers that solve for one or many solved points, in order of updating
+	[Export] private Array<BodyPartSolver> _BodyPartSolvers;
 
+    [ExportGroup("Body Parts")]
+    [ExportSubgroup("Core Chain")]
+    [Export] private BodyPartSolver EyesSolver;
+    [Export] private BodyPartSolver NeckSolver;
+    [Export] private BodyPartSolver ChestSolver;
+    [Export] private BodyPartSolver SpineSolver;
 
-	//parent node for all solved points
-    private Node3D _Skeleton;
+    [ExportSubgroup("Left Arm")]
+    [Export] private BodyPartSolver LShoulderSolver;
+    [Export] private BodyPartSolver LElbowSolver;
+    [Export] private BodyPartSolver LWristSolver;
 
-	//spine/head bones
-    private Node3D _Eyes;
-	private Node3D _Head;
-	private Node3D _Chest;
-	private Node3D _Spine;
-	private Node3D _Pelvis;
+    [ExportSubgroup("Right Arm")]
+    [Export] private BodyPartSolver RShoulderSolver;
+    [Export] private BodyPartSolver RElbowSolver;
+    [Export] private BodyPartSolver RWristSolver;
 
-	//left arm chain bones
-	private Node3D _LeftClavicle;
-	private Node3D _LeftShoulder;
-	private Node3D _LeftElbow;
-    private Node3D _LeftWrist;
+    [ExportSubgroup("Left Leg")]
+    [Export] private BodyPartSolver LHipsSolver;
+    [Export] private BodyPartSolver LKneeSolver;
+    [Export] private BodyPartSolver LAnkleSolver;
+    [Export] private BodyPartSolver LToeSolver;
+    [Export] private BodyPartSolver LToeEndSolver;
 
-	//right arm chain bones
-    private Node3D _RightClavicle;
-    private Node3D _RightShoulder;
-    private Node3D _RightElbow;
-    private Node3D _RightWrist;
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		//get references to skeleton nodes
-		_Skeleton = GetNode<Node3D>("Skeleton");
-
-		_Eyes = _Skeleton.GetNode<Node3D>("Eyes");
-		_Head = _Skeleton.GetNode<Node3D>("Head");
-        _Chest = _Skeleton.GetNode<Node3D>("Chest");
-        _Spine = _Skeleton.GetNode<Node3D>("Spine");
-        _Pelvis = _Skeleton.GetNode<Node3D>("Pelvis");
-
-        _LeftClavicle = _Skeleton.GetNode<Node3D>("LeftClavicle");
-        _LeftShoulder = _Skeleton.GetNode<Node3D>("LeftShoulder");
-        _LeftElbow = _Skeleton.GetNode<Node3D>("LeftElbow");
-        _LeftWrist = _Skeleton.GetNode<Node3D>("LeftWrist");
-
-        _RightClavicle = _Skeleton.GetNode<Node3D>("RightClavicle");
-        _RightShoulder = _Skeleton.GetNode<Node3D>("RightShoulder");
-        _RightElbow = _Skeleton.GetNode<Node3D>("RightElbow");
-        _RightWrist = _Skeleton.GetNode<Node3D>("RightWrist");
-    }
+    [ExportSubgroup("Right Leg")]
+    [Export] private BodyPartSolver RHipsSolver;
+    [Export] private BodyPartSolver RKneeSolver;
+    [Export] private BodyPartSolver RAnkleSolver;
+    [Export] private BodyPartSolver RToeSolver;
+    [Export] private BodyPartSolver RToeEndSolver;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -61,14 +75,185 @@ public partial class BodySolver : Node3D
 			throw new Exception("BodySolver has unfilled CameraRig Export! Cannot solve player body!");
 		}
 
-		//TODO get rid of this in favour of solvers - this is temporary
-		_Eyes.Position = CameraRig.Camera.Position;
-		_Eyes.Rotation = CameraRig.Camera.Rotation;
+        //iterate over each solver and process them
+        foreach (BodyPartSolver solver in _BodyPartSolvers)
+        {
+            solver.Update(this);
+        }
+	}
 
-		_LeftWrist.Position = CameraRig.ToLocal(CameraRig.LeftWrist.GlobalPosition);
-		_LeftWrist.Basis = (CameraRig.Transform.Inverse() * CameraRig.LeftWrist.Transform).Orthonormalized().Basis;
+    #region getters
+    //this isn't the most elegant, but it makes getting solved points much
+    //nicer for when we use them in AvatarMappers
 
-		_RightWrist.Position = CameraRig.ToLocal(CameraRig.RightWrist.GlobalPosition);
-		_RightWrist.Basis = (CameraRig.Transform.Inverse() * CameraRig.RightWrist.Transform).Orthonormalized().Basis;
+    //core chain
+    public Vector3 GetEyesPos()
+    {
+        return ((IEyesSolver)EyesSolver).GetEyesPos();
     }
+    public Vector3 GetNeckPos()
+    {
+        return ((INeckSolver)NeckSolver).GetNeckPos();
+    }
+    public Vector3 GetChestPos()
+    {
+        return ((IChestSolver)ChestSolver).GetChestPos();
+    }
+    public Vector3 GetSpinePos()
+    {
+        return ((ISpineSolver)SpineSolver).GetSpinePos();
+    }
+    public Vector3 GetLHipsPos()
+    {
+        return ((ILHipsSolver)LHipsSolver).GetLHipsPos();
+    }
+    public Vector3 GetRHipsPos()
+    {
+        return ((IRHipsSolver)RHipsSolver).GetRHipsPos();
+    }
+    public Basis GetEyesBas()
+    {
+        return ((IEyesSolver)EyesSolver).GetEyesBas();
+    }
+    public Basis GetNeckBas()
+    {
+        return ((INeckSolver)NeckSolver).GetNeckBas();
+    }
+    public Basis GetChestBas()
+    {
+        return ((IChestSolver)ChestSolver).GetChestBas();
+    }
+    public Basis GetSpineBas()
+    {
+        return ((ISpineSolver)SpineSolver).GetSpineBas();
+    }
+    public Basis GetLHipsBas()
+    {
+        return ((ILHipsSolver)LHipsSolver).GetLHipsBas();
+    }
+    public Basis GetRHipsBas()
+    {
+        return ((IRHipsSolver)RHipsSolver).GetRHipsBas();
+    }
+
+    //left arm
+    public Vector3 GetLShoulderPos()
+    {
+        return ((ILShoulderSolver)LShoulderSolver).GetLShoulderPos();
+    }
+    public Vector3 GetLElbowPos()
+    {
+        return ((ILElbowSolver)LElbowSolver).GetLElbowPos();
+    }
+    public Vector3 GetLWristPos()
+    {
+        return ((ILWristSolver)LWristSolver).GetLWristPos();
+    }
+    public Basis GetLShoulderBas()
+    {
+        return ((ILShoulderSolver)LShoulderSolver).GetLShoulderBas();
+    }
+    public Basis GetLElbowBas()
+    {
+        return ((ILElbowSolver)LElbowSolver).GetLElbowBas();
+    }
+    public Basis GetLWristBas()
+    {
+        return ((ILWristSolver)LWristSolver).GetLWristBas();
+    }
+
+    //right arm
+    public Vector3 GetRShoulderPos()
+    {
+        return ((IRShoulderSolver)RShoulderSolver).GetRShoulderPos();
+    }
+    public Vector3 GetRElbowPos()
+    {
+        return ((IRElbowSolver)RElbowSolver).GetRElbowPos();
+    }
+    public Vector3 GetRWristPos()
+    {
+        return ((IRWristSolver)RWristSolver).GetRWristPos();
+    }
+    public Basis GetRShoulderBas()
+    {
+        return ((IRShoulderSolver)RShoulderSolver).GetRShoulderBas();
+    }
+    public Basis GetRElbowBas()
+    {
+        return ((IRElbowSolver)RElbowSolver).GetRElbowBas();
+    }
+    public Basis GetRWristBas()
+    {
+        return ((IRWristSolver)RWristSolver).GetRWristBas();
+    }
+
+    //left leg
+    public Vector3 GetLKneePos()
+    {
+        return ((ILKneeSolver)LKneeSolver).GetLKneePos();
+    }
+    public Vector3 GetLAnklePos()
+    {
+        return ((ILAnkleSolver)LAnkleSolver).GetLAnklePos();
+    }
+    public Vector3 GetLToePos()
+    {
+        return ((ILToeSolver)LToeSolver).GetLToePos();
+    }
+    public Vector3 GetLToeEndPos()
+    {
+        return ((ILToeEndSolver)LToeEndSolver).GetLToeEndPos();
+    }
+    public Basis GetLKneeBas()
+    {
+        return ((ILKneeSolver)LKneeSolver).GetLKneeBas();
+    }
+    public Basis GetLAnkleBas()
+    {
+        return ((ILAnkleSolver)LAnkleSolver).GetLAnkleBas();
+    }
+    public Basis GetLToeBas()
+    {
+        return ((ILToeSolver)LToeSolver).GetLToeBas();
+    }
+    public Basis GetLToeEndBas()
+    {
+        return ((ILToeEndSolver)LToeEndSolver).GetLToeEndBas();
+    }
+
+    //right leg
+    public Vector3 GetRKneePos()
+    {
+        return ((IRKneeSolver)RKneeSolver).GetRKneePos();
+    }
+    public Vector3 GetRAnklePos()
+    {
+        return ((IRAnkleSolver)RAnkleSolver).GetRAnklePos();
+    }
+    public Vector3 GetRToePos()
+    {
+        return ((IRToeSolver)RToeSolver).GetRToePos();
+    }
+    public Vector3 GetRToeEndPos()
+    {
+        return ((IRToeEndSolver)RToeEndSolver).GetRToeEndPos();
+    }
+    public Basis GetRKneeBas()
+    {
+        return ((IRKneeSolver)RKneeSolver).GetRKneeBas();
+    }
+    public Basis GetRAnkleBas()
+    {
+        return ((IRAnkleSolver)RAnkleSolver).GetRAnkleBas();
+    }
+    public Basis GetRToeBas()
+    {
+        return ((IRToeSolver)RToeSolver).GetRToeBas();
+    }
+    public Basis GetRToeEndBas()
+    {
+        return ((IRToeEndSolver)RToeEndSolver).GetRToeEndBas();
+    }
+    #endregion
 }

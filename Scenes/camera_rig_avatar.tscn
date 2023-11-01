@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://wqkpucebewus"]
+
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/camera_rig_avatar.gd" id="1_pnc74"]
+[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Materials/Central Section.tres" id="2_2d1tn"]
+[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Materials/Left Side.tres" id="3_c2e8r"]
+[ext_resource type="Material" uid="uid://ldaxybf0xn28" path="res://addons/Godot-VR-Body-Solver/Materials/Right Side.tres" id="4_326gm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5apjj"]
+material = ExtResource("2_2d1tn")
+radius = 0.03
+height = 0.06
+
+[sub_resource type="SphereMesh" id="SphereMesh_it0ra"]
+material = ExtResource("3_c2e8r")
+radius = 0.03
+height = 0.06
+
+[sub_resource type="SphereMesh" id="SphereMesh_k4rie"]
+material = ExtResource("4_326gm")
+radius = 0.03
+height = 0.06
+
+[node name="CameraRigAvatar" type="Node3D" node_paths=PackedStringArray("eyes", "l_wrist", "r_wrist")]
+script = ExtResource("1_pnc74")
+eyes = NodePath("Eyes")
+l_wrist = NodePath("LWrist")
+r_wrist = NodePath("RWrist")
+
+[node name="Eyes" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_5apjj")
+
+[node name="LWrist" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_it0ra")
+
+[node name="RWrist" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_k4rie")

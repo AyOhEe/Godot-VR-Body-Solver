@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyjaj2osk3uy1"]
+
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/BodySolver.cs" id="1_jfvhn"]
+
+[node name="BodySolver" type="Node3D" node_paths=PackedStringArray("_BodyPartSolvers")]
+script = ExtResource("1_jfvhn")
+_BodyPartSolvers = []
