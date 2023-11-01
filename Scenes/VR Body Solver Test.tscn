@@ -48,10 +48,18 @@ mesh = SubResource("PlaneMesh_538nq")
 [node name="CameraRigAvatar" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
 body_solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar2" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+[node name="CameraRigAvatar Forward view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2)
 body_solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar3" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 2)
+[node name="CameraRigAvatar Back view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+body_solver = NodePath("../BodySolver")
+
+[node name="CameraRigAvatar Right view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 0, 0)
+body_solver = NodePath("../BodySolver")
+
+[node name="CameraRigAvatar Left view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
 body_solver = NodePath("../BodySolver")
