@@ -20,13 +20,17 @@ material = ExtResource("4_326gm")
 radius = 0.03
 height = 0.06
 
-[node name="CameraRigAvatar" type="Node3D" node_paths=PackedStringArray("eyes", "l_wrist", "r_wrist")]
+[node name="CameraRigAvatar" type="Node3D" node_paths=PackedStringArray("eyes", "neck", "l_wrist", "r_wrist")]
 script = ExtResource("1_pnc74")
 eyes = NodePath("Eyes")
+neck = NodePath("Neck")
 l_wrist = NodePath("LWrist")
 r_wrist = NodePath("RWrist")
 
 [node name="Eyes" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_5apjj")
+
+[node name="Neck" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_5apjj")
 
 [node name="LWrist" type="MeshInstance3D" parent="."]

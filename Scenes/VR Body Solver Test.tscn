@@ -39,11 +39,11 @@ shadow_enabled = true
 
 [node name="CameraRig" parent="." instance=ExtResource("3_qxvj2")]
 
-[node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-CameraRig = NodePath("../CameraRig")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_538nq")
+
+[node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
+CameraRig = NodePath("../CameraRig")
 
 [node name="CameraRigAvatar" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
 body_solver = NodePath("../BodySolver")

@@ -3,6 +3,7 @@ extends Node3D
 @export var body_solver : Node3D
 
 @export var eyes : Node3D
+@export var neck : Node3D
 @export var l_wrist : Node3D
 @export var r_wrist : Node3D
 
@@ -15,6 +16,9 @@ func _ready():
 func _process(delta):
 	eyes.position = body_solver.GetEyesPos()
 	eyes.basis = body_solver.GetEyesBas()
+	
+	neck.position = body_solver.GetNeckPos()
+	neck.basis = body_solver.GetNeckBas()
 	
 	l_wrist.position = body_solver.GetLWristPos()
 	l_wrist.basis = body_solver.GetLWristBas()

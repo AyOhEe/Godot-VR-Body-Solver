@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo3f3lg1xqgqb"]
+[gd_scene load_steps=4 format=3 uid="uid://bo3f3lg1xqgqb"]
 
 [ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Scenes/BaseBodySolver.tscn" id="1_sq6v5"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CoreChainSolver.cs" id="3_o4grb"]
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="5_iyhxi"]
 
-[node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "LWristSolver", "RWristSolver") instance=ExtResource("1_sq6v5")]
-_BodyPartSolvers = [NodePath("Solvers/CameraRigSolver")]
+[node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "LWristSolver", "RWristSolver") instance=ExtResource("1_sq6v5")]
+_BodyPartSolvers = [NodePath("Solvers/CameraRigSolver"), NodePath("Solvers/CoreChainSolver")]
 EyesSolver = NodePath("Solvers/CameraRigSolver")
+NeckSolver = NodePath("Solvers/CoreChainSolver")
+ChestSolver = NodePath("Solvers/CoreChainSolver")
+SpineSolver = NodePath("Solvers/CoreChainSolver")
 LWristSolver = NodePath("Solvers/CameraRigSolver")
 RWristSolver = NodePath("Solvers/CameraRigSolver")
 
@@ -13,3 +17,7 @@ RWristSolver = NodePath("Solvers/CameraRigSolver")
 
 [node name="CameraRigSolver" type="Node" parent="Solvers" index="0"]
 script = ExtResource("5_iyhxi")
+
+[node name="CoreChainSolver" type="Node" parent="Solvers" index="1"]
+script = ExtResource("3_o4grb")
+_NeckEyesOffset = Vector3(0, -0.03, 0.07)
