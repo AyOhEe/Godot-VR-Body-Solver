@@ -130,15 +130,3 @@ interface IRToeSolver
     public Vector3 GetRToePos();
     public Basis GetRToeBas();
 }
-
-//toe ends
-interface ILToeEndSolver
-{
-    public Vector3 GetLToeEndPos();
-    public Basis GetLToeEndBas();
-}
-interface IRToeEndSolver
-{
-    public Vector3 GetRToeEndPos();
-    public Basis GetRToeEndBas();
-}

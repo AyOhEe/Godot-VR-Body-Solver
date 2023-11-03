@@ -21,12 +21,10 @@ interface IFullbodySolver :
     ILKneeSolver,
     ILAnkleSolver,
     ILToeSolver,
-    ILToeEndSolver,
 
     IRKneeSolver,
     IRAnkleSolver,
-    IRToeSolver,
-    IRToeEndSolver
+    IRToeSolver
 { }
 
 public partial class BodySolver : Node, IFullbodySolver
@@ -58,14 +56,12 @@ public partial class BodySolver : Node, IFullbodySolver
     [Export] private BodyPartSolver LKneeSolver;
     [Export] private BodyPartSolver LAnkleSolver;
     [Export] private BodyPartSolver LToeSolver;
-    [Export] private BodyPartSolver LToeEndSolver;
 
     [ExportSubgroup("Right Leg")]
     [Export] private BodyPartSolver RHipsSolver;
     [Export] private BodyPartSolver RKneeSolver;
     [Export] private BodyPartSolver RAnkleSolver;
     [Export] private BodyPartSolver RToeSolver;
-    [Export] private BodyPartSolver RToeEndSolver;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -201,10 +197,6 @@ public partial class BodySolver : Node, IFullbodySolver
     {
         return ((ILToeSolver)LToeSolver).GetLToePos();
     }
-    public Vector3 GetLToeEndPos()
-    {
-        return ((ILToeEndSolver)LToeEndSolver).GetLToeEndPos();
-    }
     public Basis GetLKneeBas()
     {
         return ((ILKneeSolver)LKneeSolver).GetLKneeBas();
@@ -216,10 +208,6 @@ public partial class BodySolver : Node, IFullbodySolver
     public Basis GetLToeBas()
     {
         return ((ILToeSolver)LToeSolver).GetLToeBas();
-    }
-    public Basis GetLToeEndBas()
-    {
-        return ((ILToeEndSolver)LToeEndSolver).GetLToeEndBas();
     }
 
     //right leg
@@ -235,10 +223,6 @@ public partial class BodySolver : Node, IFullbodySolver
     {
         return ((IRToeSolver)RToeSolver).GetRToePos();
     }
-    public Vector3 GetRToeEndPos()
-    {
-        return ((IRToeEndSolver)RToeEndSolver).GetRToeEndPos();
-    }
     public Basis GetRKneeBas()
     {
         return ((IRKneeSolver)RKneeSolver).GetRKneeBas();
@@ -250,10 +234,6 @@ public partial class BodySolver : Node, IFullbodySolver
     public Basis GetRToeBas()
     {
         return ((IRToeSolver)RToeSolver).GetRToeBas();
-    }
-    public Basis GetRToeEndBas()
-    {
-        return ((IRToeEndSolver)RToeEndSolver).GetRToeEndBas();
     }
     #endregion
 }
