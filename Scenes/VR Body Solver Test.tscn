@@ -11,20 +11,20 @@ sky_horizon_color = Color(0.568627, 0.635294, 0.729412, 1)
 sky_curve = 0.0256132
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_5ljda"]
+[sub_resource type="Sky" id="Sky_8x0d0"]
 sky_material = SubResource("ProceduralSkyMaterial_qd38j")
 
 [sub_resource type="Environment" id="Environment_go160"]
 background_mode = 2
-sky = SubResource("Sky_5ljda")
+sky = SubResource("Sky_8x0d0")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuoaf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyx43"]
 albedo_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_538nq"]
-material = SubResource("StandardMaterial3D_uuoaf")
+material = SubResource("StandardMaterial3D_jyx43")
 size = Vector2(10, 10)
 
 [node name="VR Body Solver Test" type="Node3D"]

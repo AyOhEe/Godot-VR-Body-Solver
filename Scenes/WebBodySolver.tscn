@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://d27vbv2ow18is"]
+
+[ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Scenes/BaseBodySolver.tscn" id="1_uhwaj"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/WebSolver.cs" id="2_lrw8i"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="3_mtk1r"]
+
+[node name="Web Body Solver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_uhwaj")]
+_BodyPartSolvers = [NodePath("WebSolver"), NodePath("CamRigSolver")]
+EyesSolver = NodePath("CamRigSolver")
+NeckSolver = NodePath("WebSolver")
+ChestSolver = NodePath("WebSolver")
+SpineSolver = NodePath("WebSolver")
+LShoulderSolver = NodePath("WebSolver")
+LElbowSolver = NodePath("WebSolver")
+LWristSolver = NodePath("CamRigSolver")
+RShoulderSolver = NodePath("WebSolver")
+RElbowSolver = NodePath("WebSolver")
+RWristSolver = NodePath("CamRigSolver")
+LHipsSolver = NodePath("WebSolver")
+LKneeSolver = NodePath("WebSolver")
+LAnkleSolver = NodePath("WebSolver")
+LToeSolver = NodePath("WebSolver")
+RHipsSolver = NodePath("WebSolver")
+RKneeSolver = NodePath("WebSolver")
+RAnkleSolver = NodePath("WebSolver")
+RToeSolver = NodePath("WebSolver")
+
+[node name="WebSolver" type="Node" parent="." index="0"]
+script = ExtResource("2_lrw8i")
+
+[node name="CamRigSolver" type="Node" parent="." index="1"]
+script = ExtResource("3_mtk1r")

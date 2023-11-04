@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://cunqg4p4pkvk4"]
+
+[ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_ltre2"]
+[ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="2_hnekb"]
+[ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="3_yxyon"]
+[ext_resource type="PackedScene" uid="uid://d27vbv2ow18is" path="res://addons/Godot-VR-Body-Solver/Scenes/WebBodySolver.tscn" id="4_oqfgt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5bcm"]
+sky_top_color = Color(0.298039, 0.407843, 0.54902, 1)
+sky_horizon_color = Color(0.568627, 0.635294, 0.729412, 1)
+sky_curve = 0.0256132
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_5ljda"]
+sky_material = SubResource("ProceduralSkyMaterial_j5bcm")
+
+[sub_resource type="Environment" id="Environment_mg0qm"]
+background_mode = 2
+sky = SubResource("Sky_5ljda")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuoaf"]
+albedo_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2ap2j"]
+material = SubResource("StandardMaterial3D_uuoaf")
+size = Vector2(10, 10)
+
+[node name="Web Body Solver Test" type="Node3D"]
+script = ExtResource("1_ltre2")
+
+[node name="CameraRig" parent="." instance=ExtResource("2_hnekb")]
+
+[node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("3_yxyon")]
+CameraRig = NodePath("../CameraRig")
+
+[node name="Web Body Solver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_oqfgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.670482)
+CameraRig = NodePath("../CameraRig")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mg0qm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+mesh = SubResource("PlaneMesh_2ap2j")
