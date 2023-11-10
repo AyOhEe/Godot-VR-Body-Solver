@@ -1,0 +1,146 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8ccdoo0nk1uy"]
+
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/SkeletalAvatar.cs" id="1_s1q0k"]
+[ext_resource type="PackedScene" uid="uid://cn6x8mcfliu3v" path="res://addons/Godot-VR-Body-Solver/Scenes/TrackedPoint.tscn" id="2_sn33r"]
+[ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Materials/Central Section.tres" id="3_5rtq7"]
+[ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Materials/Left Side.tres" id="4_mtobv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_esoyi"]
+material = ExtResource("3_5rtq7")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_6xi43"]
+material = ExtResource("4_mtobv")
+radius = 0.025
+height = 0.05
+
+[node name="SkeletalAvatar" type="Node3D" node_paths=PackedStringArray("Eyes", "Neck", "Chest", "Spine", "LShoulder", "LElbow", "LWrist", "RShoulder", "RElbow", "RWrist", "LHips", "LKnee", "LAnkle", "LToe", "RHips", "RKnee", "RAnkle", "RToe")]
+script = ExtResource("1_s1q0k")
+Eyes = NodePath("Eyes")
+Neck = NodePath("Neck")
+Chest = NodePath("Chest")
+Spine = NodePath("Spine")
+LShoulder = NodePath("LShoulder")
+LElbow = NodePath("LElbow")
+LWrist = NodePath("LWrist")
+RShoulder = NodePath("RShoulder")
+RElbow = NodePath("RElbow")
+RWrist = NodePath("RWrist")
+LHips = NodePath("LHips")
+LKnee = NodePath("LKnee")
+LAnkle = NodePath("LAnkle")
+LToe = NodePath("LToe")
+RHips = NodePath("RHips")
+RKnee = NodePath("RKnee")
+RAnkle = NodePath("RAnkle")
+RToe = NodePath("RToe")
+
+[node name="Eyes" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="Eyes" index="0"]
+mesh = SubResource("SphereMesh_esoyi")
+
+[node name="Neck" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="Neck" index="0"]
+mesh = SubResource("SphereMesh_esoyi")
+
+[node name="Chest" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="Chest" index="0"]
+mesh = SubResource("SphereMesh_esoyi")
+
+[node name="Spine" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="Spine" index="0"]
+mesh = SubResource("SphereMesh_esoyi")
+
+[node name="LShoulder" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LShoulder" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LElbow" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LElbow" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LWrist" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LWrist" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LHips" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LHips" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LKnee" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LKnee" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LAnkle" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LAnkle" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="LToe" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="LToe" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RShoulder" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RShoulder" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RElbow" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RElbow" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RWrist" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RWrist" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RHips" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RHips" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RKnee" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RKnee" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RAnkle" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RAnkle" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[node name="RToe" parent="." instance=ExtResource("2_sn33r")]
+
+[node name="MeshInstance3D" parent="RToe" index="0"]
+mesh = SubResource("SphereMesh_6xi43")
+
+[editable path="Eyes"]
+[editable path="Neck"]
+[editable path="Chest"]
+[editable path="Spine"]
+[editable path="LShoulder"]
+[editable path="LElbow"]
+[editable path="LWrist"]
+[editable path="LHips"]
+[editable path="LKnee"]
+[editable path="LAnkle"]
+[editable path="LToe"]
+[editable path="RShoulder"]
+[editable path="RElbow"]
+[editable path="RWrist"]
+[editable path="RHips"]
+[editable path="RKnee"]
+[editable path="RAnkle"]
+[editable path="RToe"]

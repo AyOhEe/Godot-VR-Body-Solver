@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_wk18c"]
 [ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
-[ext_resource type="PackedScene" uid="uid://wqkpucebewus" path="res://addons/Godot-VR-Body-Solver/Scenes/camera_rig_avatar.tscn" id="4_156kh"]
+[ext_resource type="PackedScene" uid="uid://c8ccdoo0nk1uy" path="res://addons/Godot-VR-Body-Solver/Scenes/SkeletalAvatar.tscn" id="4_156kh"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="4_seuei"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qd38j"]
@@ -45,21 +45,21 @@ mesh = SubResource("PlaneMesh_538nq")
 [node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
 CameraRig = NodePath("../CameraRig")
 
-[node name="CameraRigAvatar" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
-body_solver = NodePath("../BodySolver")
+[node name="SkeletalAvatar" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
+Solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar Forward view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+[node name="SkeletalAvatar Forward view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2)
-body_solver = NodePath("../BodySolver")
+Solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar Back view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+[node name="SkeletalAvatar Back view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-body_solver = NodePath("../BodySolver")
+Solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar Right view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+[node name="SkeletalAvatar Right view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 0, 0)
-body_solver = NodePath("../BodySolver")
+Solver = NodePath("../BodySolver")
 
-[node name="CameraRigAvatar Left view" parent="." node_paths=PackedStringArray("body_solver") instance=ExtResource("4_156kh")]
+[node name="SkeletalAvatar Left view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
-body_solver = NodePath("../BodySolver")
+Solver = NodePath("../BodySolver")
