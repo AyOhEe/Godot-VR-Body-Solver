@@ -4,9 +4,7 @@ using System;
 interface ICoreChainSolver :
 	INeckSolver,
 	IChestSolver,
-	ISpineSolver,
-	ILHipsSolver,
-	IRHipsSolver
+	ISpineSolver
 { }
 
 public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
@@ -17,8 +15,8 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     [Export] private Vector3 _SpineChestOffset;
 
 
-	//the position and basis of the neck relative to the camera rig
-	private Vector3 _NeckPos;
+    //the position and basis of the neck relative to the camera rig
+    private Vector3 _NeckPos;
 	private Basis _NeckBas;
 
     //the position and basis of the chest relative to the camera rig
@@ -29,14 +27,6 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     private Vector3 _SpinePos;
     private Basis _SpineBas;
 
-    //the position and basis of the neck relative to the camera rig
-    private Vector3 _LHipPos;
-    private Basis _LHipBas;
-
-    //the position and basis of the neck relative to the camera rig
-    private Vector3 _RHipPos;
-    private Basis _RHipBas;
-
 
     public override void Update(BodySolver Solver)
 	{
@@ -44,8 +34,7 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 		SolveNeck(Solver);
         SolveChest(Solver);
         SolveSpine(Solver);
-		SolveHips(Solver);
-	}
+    }
 
 
 	//solves for the neck's position and basis
@@ -85,12 +74,6 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
         Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 neckRight);
         _SpineBas = new Basis(neckRight, Vector3.Up, bodyForward);
-    }
-
-    //solves for the position and basis of each hip
-    private void SolveHips(BodySolver Solver)
-    {
-
     }
 
 
@@ -139,24 +122,6 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     public Basis GetSpineBas()
     {
         return _SpineBas;
-    }
-
-    public Vector3 GetLHipsPos()
-    {
-        return _LHipPos;
-    }
-    public Basis GetLHipsBas()
-    {
-        return _LHipBas;
-    }
-
-    public Vector3 GetRHipsPos()
-    {
-        return _RHipPos;
-    }
-    public Basis GetRHipsBas()
-    {
-        return _RHipBas;
     }
     #endregion
 }
