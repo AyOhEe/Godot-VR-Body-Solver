@@ -35,7 +35,7 @@ script = ExtResource("1_ltre2")
 [node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("3_yxyon")]
 CameraRig = NodePath("../CameraRig")
 
-[node name="Web Body Solver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_oqfgt")]
+[node name="WebBodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_oqfgt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.670482)
 CameraRig = NodePath("../CameraRig")
 
@@ -50,4 +50,4 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 mesh = SubResource("PlaneMesh_2ap2j")
 
-[editable path="Web Body Solver"]
+[editable path="WebBodySolver"]
