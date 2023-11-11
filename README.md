@@ -3,3 +3,4 @@
 
 # Dependencies
  https://github.com/AyOhEe/Godot-OpenXR-Startup As a submodule/folder under res://addons/
+ https://github.com/AyOhEe/Godot-Extras As a submodule/folder under res://addons/
