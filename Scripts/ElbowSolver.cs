@@ -34,7 +34,6 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         //valid solution
         float shoulderWristDist = wristPos.DistanceTo(shoulderPos);
         float shoulderAngle = CosineLawAngle(ArmLength, shoulderWristDist, ForearmLength, out _);
-        GD.Print(shoulderAngle);
         Vector3 armPlaneNormal = CalculateArmPlaneNormal(wristPos, shoulderPos, Hint);
         Vector3 elbowDir = (wristPos - shoulderPos).Normalized().Rotated(armPlaneNormal, shoulderAngle);
 
@@ -90,8 +89,24 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         GetShoulderPose(Solver, out Vector3 shoulderPos, out Basis shoulderBas);
 
         //TODO this sucks
+        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
+        Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
         Vector3 bodySideVector = Lefthanded ? Vector3.Left : Vector3.Right;
-        return bodySideVector + ((wristPos + shoulderPos) / 2);
+        return (bodyOrientation * bodySideVector) + ((wristPos + shoulderPos) / 2);
+    }
+    //calculates the direction the player's body is facing
+    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 bodyRight)
+    {
+        //get a vector3 of length 1 in the direction of the eyes' right vector
+        //the right vector doesn't change if the player looks beyond straight up, 
+        //and usually stays on the correct side of straight up/down to be a good
+        //indicator of the body's forward direction
+        bodyRight = Solver.GetEyesBas() * Vector3.Right;
+        bodyRight.Y = 0;
+        bodyRight = bodyRight.Normalized();
+        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
+
+        return bodyForward;
     }
 
 

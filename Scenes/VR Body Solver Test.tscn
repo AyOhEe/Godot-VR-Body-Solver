@@ -48,6 +48,16 @@ CameraRig = NodePath("../CameraRig")
 [node name="SkeletalAvatar" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 Solver = NodePath("../BodySolver")
 
+[node name="Eyes" parent="SkeletalAvatar" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.827645, 0)
+visible = false
+
+[node name="MeshInstance3D" parent="SkeletalAvatar/Eyes" index="0"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="Axis Helper" parent="SkeletalAvatar/Eyes" index="1"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
 [node name="SkeletalAvatar Forward view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2)
 Solver = NodePath("../BodySolver")
@@ -63,3 +73,23 @@ Solver = NodePath("../BodySolver")
 [node name="SkeletalAvatar Left view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
 Solver = NodePath("../BodySolver")
+
+[editable path="SkeletalAvatar"]
+[editable path="SkeletalAvatar/Eyes"]
+[editable path="SkeletalAvatar/Neck"]
+[editable path="SkeletalAvatar/Chest"]
+[editable path="SkeletalAvatar/Spine"]
+[editable path="SkeletalAvatar/LShoulder"]
+[editable path="SkeletalAvatar/LElbow"]
+[editable path="SkeletalAvatar/LWrist"]
+[editable path="SkeletalAvatar/LHips"]
+[editable path="SkeletalAvatar/LKnee"]
+[editable path="SkeletalAvatar/LAnkle"]
+[editable path="SkeletalAvatar/LToe"]
+[editable path="SkeletalAvatar/RShoulder"]
+[editable path="SkeletalAvatar/RElbow"]
+[editable path="SkeletalAvatar/RWrist"]
+[editable path="SkeletalAvatar/RHips"]
+[editable path="SkeletalAvatar/RKnee"]
+[editable path="SkeletalAvatar/RAnkle"]
+[editable path="SkeletalAvatar/RToe"]

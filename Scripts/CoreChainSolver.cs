@@ -46,7 +46,6 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Basis eyeBas = Solver.GetEyesBas();
 
         //move back and keep the rotation
-        Vector3 BodyForward = CalculateBodyForward(Solver);
         _NeckPos = eyePos + (eyeBas * _NeckEyesOffset);
         _NeckBas = Basis.LookingAt(eyePos - _NeckPos, Vector3.Up);
     }
@@ -73,24 +72,26 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
         _SpinePos = chestPos + _SpineChestOffset;
 
-        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 neckRight);
-        _SpineBas = new Basis(neckRight, Vector3.Up, bodyForward);
+        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
+        _SpineBas = new Basis(bodyRight, Vector3.Up, bodyForward);
     }
 
 
     //calculates the direction the player's body is facing
-    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 neckRight)
+    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 bodyRight)
     {
-        //get a vector3 of length 1 in the direction of the neck's right vector
+        //get a vector3 of length 1 in the direction of the eyes' right vector
         //the right vector doesn't change if the player looks beyond straight up, 
         //and usually stays on the correct side of straight up/down to be a good
         //indicator of the body's forward direction
-        neckRight = new Plane(Vector3.Up).Project(Vector3.Right * Solver.GetNeckBas()).Normalized();
-        Vector3 bodyForward = neckRight.Cross(Vector3.Up).Normalized();
+        bodyRight = Solver.GetEyesBas() * Vector3.Right;
+        bodyRight.Y = 0;
+        bodyRight = bodyRight.Normalized();
+        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
 
         return bodyForward;
     }
-    //overload that does not require the {out Vector3 neckRight} parameter
+    //overload that does not require the {out Vector3 bodyRight} parameter
     private Vector3 CalculateBodyForward(BodySolver Solver)
     {
         return CalculateBodyForward(Solver, out _);
