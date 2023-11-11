@@ -7,6 +7,7 @@ interface ICoreChainSolver :
 	ISpineSolver
 { }
 
+[GlobalClass]
 public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 {
 	//the offset between the neck and the eyes, relative to the eyes' position and basis

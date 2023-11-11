@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class DefaultSolver : BodyPartSolver, IFullbodySolver
 {
 	public override void Update(BodySolver Solver)
