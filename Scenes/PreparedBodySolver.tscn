@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bo3f3lg1xqgqb"]
+[gd_scene load_steps=10 format=3 uid="uid://bo3f3lg1xqgqb"]
 
 [ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Scenes/BaseBodySolver.tscn" id="1_sq6v5"]
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CoreChainSolver.cs" id="3_o4grb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="5_iyhxi"]
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/TwoShoulderSolver.cs" id="5_w50pv"]
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/OneShoulderSolver.cs" id="6_iow8h"]
+[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/ElbowSolver.cs" id="7_gkkml"]
 
 [sub_resource type="Resource" id="Resource_nuaqn"]
 resource_local_to_scene = true
@@ -20,16 +21,16 @@ _ShoulderDirection = Vector3(1, 0, 0)
 _ShoulderLength = 0.17
 
 [node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_sq6v5")]
-_BodyPartSolvers = [NodePath("Solvers/CameraRigSolver"), NodePath("Solvers/CoreChainSolver"), NodePath("Solvers/ShouldersSolver")]
+_BodyPartSolvers = [NodePath("Solvers/CameraRigSolver"), NodePath("Solvers/CoreChainSolver"), NodePath("Solvers/ShouldersSolver"), NodePath("Solvers/LElbowSolver"), NodePath("Solvers/RElbowSolver")]
 EyesSolver = NodePath("Solvers/CameraRigSolver")
 NeckSolver = NodePath("Solvers/CoreChainSolver")
 ChestSolver = NodePath("Solvers/CoreChainSolver")
 SpineSolver = NodePath("Solvers/CoreChainSolver")
 LShoulderSolver = NodePath("Solvers/ShouldersSolver")
-LElbowSolver = NodePath("Solvers/DefaultSolver")
+LElbowSolver = NodePath("Solvers/LElbowSolver")
 LWristSolver = NodePath("Solvers/CameraRigSolver")
 RShoulderSolver = NodePath("Solvers/ShouldersSolver")
-RElbowSolver = NodePath("Solvers/DefaultSolver")
+RElbowSolver = NodePath("Solvers/RElbowSolver")
 RWristSolver = NodePath("Solvers/CameraRigSolver")
 LHipsSolver = NodePath("Solvers/DefaultSolver")
 LKneeSolver = NodePath("Solvers/DefaultSolver")
@@ -58,3 +59,14 @@ script = ExtResource("4_irwey")
 script = ExtResource("5_w50pv")
 _LShoulderSolver = SubResource("Resource_nuaqn")
 _RShoulderSolver = SubResource("Resource_7ielf")
+
+[node name="LElbowSolver" type="Node" parent="Solvers" index="4"]
+script = ExtResource("7_gkkml")
+Lefthanded = true
+ArmLength = 0.26
+ForearmLength = 0.26
+
+[node name="RElbowSolver" type="Node" parent="Solvers" index="5"]
+script = ExtResource("7_gkkml")
+ArmLength = 0.26
+ForearmLength = 0.26

@@ -13,6 +13,5 @@ public partial class OneShoulderSolver : Resource
     public void Update(BodySolver Solver, Vector3 WristPos, Basis WristBas)
     {
         ShoulderPos = Solver.GetChestPos() + (_ShoulderDirection * _ShoulderLength);
-        GD.Print("Updating!");
     }
 }
