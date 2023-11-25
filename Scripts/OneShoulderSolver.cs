@@ -9,6 +9,12 @@ public partial class OneShoulderSolver : Resource
     public Vector3 ShoulderPos { get; private set; } = Vector3.Zero;
     public Basis ShoulderBas { get; private set; } = Basis.Identity;
 
+    public void Start()
+    {
+        //ensure the shoulder direction upon initialisation is normalised. other
+        //calculations depend on this fact.
+        _ShoulderDirection = _ShoulderDirection.Normalized();
+    }
 
     public void Update(BodySolver Solver, Vector3 WristPos, Basis WristBas)
     {

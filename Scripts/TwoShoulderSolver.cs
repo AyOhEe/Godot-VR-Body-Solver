@@ -8,6 +8,11 @@ public partial class TwoShoulderSolver : BodyPartSolver, ILShoulderSolver, IRSho
     [Export] private OneShoulderSolver _LShoulderSolver;
     [Export] private OneShoulderSolver _RShoulderSolver;
 
+    public override void _Ready()
+    {
+        _LShoulderSolver.Start();
+        _RShoulderSolver.Start();
+    }
 
     public override void Update(BodySolver Solver)
     {
