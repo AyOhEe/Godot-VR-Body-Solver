@@ -15,6 +15,9 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     [Export] private Vector3 _ChestNeckOffset;
     [Export] private Vector3 _SpineChestOffset;
 
+    [ExportCategory("Neck Bend settings")]
+    [Export] private Curve EyeAngleNeckBend;
+
 
     //the position and basis of the neck relative to the camera rig
     private Vector3 _NeckPos;
@@ -57,9 +60,17 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Vector3 neckPos = Solver.GetNeckPos();
         Basis neckBas = Solver.GetNeckBas();
 
-        Vector3 BodyForward = CalculateBodyForward(Solver);
-        _ChestPos = neckPos + _ChestNeckOffset;
-        _ChestBas = Basis.LookingAt(neckPos - _ChestPos, BodyForward);
+        //calculate the signed eye angle and neck bend
+        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
+        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Back, bodyRight);
+        float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
+        float neckBendAngle = EyeAngleNeckBend.Sample(eyeAngle01);
+        Basis neckBendBasis = new Basis(Vector3.Right, neckBendAngle);
+
+
+        Basis chestBasisOffset = neckBendBasis;
+        _ChestBas = Basis.LookingAt(Vector3.Up, bodyForward) * chestBasisOffset;
+        _ChestPos = neckPos + (_ChestBas * _ChestNeckOffset);
     }
 
     //TODO this needs to make more sense, perhaps adding a IBodyForward interface now could be a good idea
