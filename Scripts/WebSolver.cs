@@ -58,6 +58,7 @@ public partial class WebSolver : BodyPartSolver, IFullbodySolver
     private TrackedPoint _Neck = default;
     private TrackedPoint _Chest = default;
     private TrackedPoint _Spine = default;
+    private Basis _BodyForward = default;
 
     //left arm
     private TrackedPoint _LShoulder = default;
@@ -246,6 +247,10 @@ public partial class WebSolver : BodyPartSolver, IFullbodySolver
     public Basis GetSpineBas()
     {
         return _Spine.Bas;
+    }
+    public Basis GetBodyDirection()
+    {
+        return _BodyForward;
     }
 
     //left arm

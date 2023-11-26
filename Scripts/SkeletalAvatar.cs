@@ -11,6 +11,7 @@ public partial class SkeletalAvatar : Node
     [Export] private Node3D Neck;
     [Export] private Node3D Chest;
     [Export] private Node3D Spine;
+    [Export] private Node3D BodyDirection;
 
     [ExportSubgroup("Left Arm")]
     [Export] private Node3D LShoulder;
@@ -40,6 +41,7 @@ public partial class SkeletalAvatar : Node
         Neck.Transform = new Transform3D(Solver.GetNeckBas(), Solver.GetNeckPos());
         Chest.Transform = new Transform3D(Solver.GetChestBas(), Solver.GetChestPos());
         Spine.Transform = new Transform3D(Solver.GetSpineBas(), Solver.GetSpinePos());
+        BodyDirection.Transform = new Transform3D(Solver.GetBodyDirection(), Vector3.Zero);
 
         
         LShoulder.Transform = new Transform3D(Solver.GetLShoulderBas(), Solver.GetLShoulderPos());

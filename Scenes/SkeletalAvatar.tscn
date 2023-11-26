@@ -15,12 +15,13 @@ material = ExtResource("4_mtobv")
 radius = 0.025
 height = 0.05
 
-[node name="SkeletalAvatar" type="Node3D" node_paths=PackedStringArray("Eyes", "Neck", "Chest", "Spine", "LShoulder", "LElbow", "LWrist", "RShoulder", "RElbow", "RWrist", "LHips", "LKnee", "LAnkle", "LToe", "RHips", "RKnee", "RAnkle", "RToe")]
+[node name="SkeletalAvatar" type="Node3D" node_paths=PackedStringArray("Eyes", "Neck", "Chest", "Spine", "BodyDirection", "LShoulder", "LElbow", "LWrist", "RShoulder", "RElbow", "RWrist", "LHips", "LKnee", "LAnkle", "LToe", "RHips", "RKnee", "RAnkle", "RToe")]
 script = ExtResource("1_s1q0k")
 Eyes = NodePath("Eyes")
 Neck = NodePath("Neck")
 Chest = NodePath("Chest")
 Spine = NodePath("Spine")
+BodyDirection = NodePath("Body Direction")
 LShoulder = NodePath("LShoulder")
 LElbow = NodePath("LElbow")
 LWrist = NodePath("LWrist")
@@ -55,6 +56,8 @@ mesh = SubResource("SphereMesh_esoyi")
 
 [node name="MeshInstance3D" parent="Spine" index="0"]
 mesh = SubResource("SphereMesh_esoyi")
+
+[node name="Body Direction" parent="." instance=ExtResource("2_sn33r")]
 
 [node name="LShoulder" parent="." instance=ExtResource("2_sn33r")]
 
@@ -130,6 +133,7 @@ mesh = SubResource("SphereMesh_6xi43")
 [editable path="Neck"]
 [editable path="Chest"]
 [editable path="Spine"]
+[editable path="Body Direction"]
 [editable path="LShoulder"]
 [editable path="LElbow"]
 [editable path="LWrist"]

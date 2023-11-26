@@ -51,6 +51,10 @@ public partial class DefaultSolver : BodyPartSolver, IFullbodySolver
     {
         return Basis.Identity;
     }
+    public Basis GetBodyDirection()
+    {
+        return Basis.Identity;
+    }
     public Basis GetLHipsBas()
     {
         return Basis.Identity;

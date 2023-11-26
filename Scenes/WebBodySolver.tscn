@@ -4,12 +4,13 @@
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/WebSolver.cs" id="2_lrw8i"]
 [ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="3_mtk1r"]
 
-[node name="WebBodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_uhwaj")]
+[node name="WebBodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "BodyDirectionSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_uhwaj")]
 _BodyPartSolvers = [NodePath("WebSolver"), NodePath("CamRigSolver")]
 EyesSolver = NodePath("CamRigSolver")
 NeckSolver = NodePath("WebSolver")
 ChestSolver = NodePath("WebSolver")
 SpineSolver = NodePath("WebSolver")
+BodyDirectionSolver = NodePath("WebSolver")
 LShoulderSolver = NodePath("WebSolver")
 LElbowSolver = NodePath("WebSolver")
 LWristSolver = NodePath("CamRigSolver")

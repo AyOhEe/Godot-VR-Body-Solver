@@ -4,7 +4,8 @@ using System;
 interface ICoreChainSolver :
 	INeckSolver,
 	IChestSolver,
-	ISpineSolver
+	ISpineSolver,
+    IBodyDirectionSolver
 { }
 
 [GlobalClass]
@@ -18,6 +19,8 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     [ExportCategory("Neck Bend settings")]
     [Export] private Curve EyeAngleNeckBend;
 
+    //the direction which the body is facing expressed as a basis
+    private Basis _BodyDirection;
 
     //the position and basis of the neck relative to the camera rig
     private Vector3 _NeckPos;
@@ -34,12 +37,26 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
     public override void Update(BodySolver Solver)
 	{
-		//solve for each part of the chain in turn
+        //solve for each part of the chain in turn
+        SolveBodyDirection(Solver);
 		SolveNeck(Solver);
         SolveChest(Solver);
         SolveSpine(Solver);
     }
 
+    private void SolveBodyDirection(BodySolver Solver)
+    {   
+        //get a vector3 of length 1 in the direction of the eyes' right vector
+        //the right vector doesn't change if the player looks beyond straight up, 
+        //and usually stays on the correct side of straight up/down to be a good
+        //indicator of the body's forward direction
+        Vector3 bodyRight = Solver.GetEyesBas() * Vector3.Right;
+        bodyRight.Y = 0;
+        bodyRight = bodyRight.Normalized();
+        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
+
+        _BodyDirection = Basis.LookingAt(bodyForward, Vector3.Up);
+    }
 
 	//solves for the neck's position and basis
 	private void SolveNeck(BodySolver Solver)
@@ -61,7 +78,8 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Basis neckBas = Solver.GetNeckBas();
 
         //calculate the signed eye angle and neck bend
-        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
+        Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
+        Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
         float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Back, bodyRight);
         float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
         float neckBendAngle = EyeAngleNeckBend.Sample(eyeAngle01);
@@ -83,29 +101,9 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
         _SpinePos = chestPos + _SpineChestOffset;
 
-        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
+        Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
+        Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
         _SpineBas = new Basis(bodyRight, Vector3.Up, bodyForward);
-    }
-
-
-    //calculates the direction the player's body is facing
-    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 bodyRight)
-    {
-        //get a vector3 of length 1 in the direction of the eyes' right vector
-        //the right vector doesn't change if the player looks beyond straight up, 
-        //and usually stays on the correct side of straight up/down to be a good
-        //indicator of the body's forward direction
-        bodyRight = Solver.GetEyesBas() * Vector3.Right;
-        bodyRight.Y = 0;
-        bodyRight = bodyRight.Normalized();
-        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
-
-        return bodyForward;
-    }
-    //overload that does not require the {out Vector3 bodyRight} parameter
-    private Vector3 CalculateBodyForward(BodySolver Solver)
-    {
-        return CalculateBodyForward(Solver, out _);
     }
 
 
@@ -135,6 +133,11 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     public Basis GetSpineBas()
     {
         return _SpineBas;
+    }
+
+    public Basis GetBodyDirection()
+    {
+        return _BodyDirection;
     }
     #endregion
 }

@@ -51,15 +51,9 @@ interface ISpineSolver
     public Vector3 GetSpinePos();
     public Basis GetSpineBas();
 }
-interface ILHipsSolver
+interface IBodyDirectionSolver
 {
-    public Vector3 GetLHipsPos();
-    public Basis GetLHipsBas();
-}
-interface IRHipsSolver
-{
-    public Vector3 GetRHipsPos();
-    public Basis GetRHipsBas();
+    public Basis GetBodyDirection();
 }
 
 //shoulders
@@ -94,6 +88,18 @@ interface IRWristSolver
 {
     public Vector3 GetRWristPos();
     public Basis GetRWristBas();
+}
+
+//hips
+interface ILHipsSolver
+{
+    public Vector3 GetLHipsPos();
+    public Basis GetLHipsBas();
+}
+interface IRHipsSolver
+{
+    public Vector3 GetRHipsPos();
+    public Basis GetRHipsBas();
 }
 
 //knees

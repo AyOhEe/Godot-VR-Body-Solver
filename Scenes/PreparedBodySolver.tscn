@@ -27,12 +27,13 @@ script = ExtResource("6_iow8h")
 _ShoulderDirection = Vector3(0.13, -0.04, 0)
 _ShoulderLength = 0.17
 
-[node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_sq6v5")]
+[node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "BodyDirectionSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_sq6v5")]
 _BodyPartSolvers = [NodePath("Solvers/CameraRigSolver"), NodePath("Solvers/CoreChainSolver"), NodePath("Solvers/ShouldersSolver"), NodePath("Solvers/LElbowSolver"), NodePath("Solvers/RElbowSolver")]
 EyesSolver = NodePath("Solvers/CameraRigSolver")
 NeckSolver = NodePath("Solvers/CoreChainSolver")
 ChestSolver = NodePath("Solvers/CoreChainSolver")
 SpineSolver = NodePath("Solvers/CoreChainSolver")
+BodyDirectionSolver = NodePath("Solvers/CoreChainSolver")
 LShoulderSolver = NodePath("Solvers/ShouldersSolver")
 LElbowSolver = NodePath("Solvers/LElbowSolver")
 LWristSolver = NodePath("Solvers/CameraRigSolver")

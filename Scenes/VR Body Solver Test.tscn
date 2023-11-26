@@ -79,6 +79,7 @@ Solver = NodePath("../BodySolver")
 [editable path="SkeletalAvatar/Neck"]
 [editable path="SkeletalAvatar/Chest"]
 [editable path="SkeletalAvatar/Spine"]
+[editable path="SkeletalAvatar/Body Direction"]
 [editable path="SkeletalAvatar/LShoulder"]
 [editable path="SkeletalAvatar/LElbow"]
 [editable path="SkeletalAvatar/LWrist"]

@@ -7,8 +7,7 @@ interface IFullbodySolver :
     INeckSolver,
     IChestSolver,
     ISpineSolver,
-    IRHipsSolver,
-    ILHipsSolver,
+    IBodyDirectionSolver,
 
     ILShoulderSolver,
     ILElbowSolver,
@@ -18,10 +17,12 @@ interface IFullbodySolver :
     IRElbowSolver,
     IRWristSolver,
 
+    ILHipsSolver,
     ILKneeSolver,
     ILAnkleSolver,
     ILToeSolver,
 
+    IRHipsSolver,
     IRKneeSolver,
     IRAnkleSolver,
     IRToeSolver
@@ -40,6 +41,7 @@ public partial class BodySolver : Node, IFullbodySolver
     [Export] private BodyPartSolver NeckSolver;
     [Export] private BodyPartSolver ChestSolver;
     [Export] private BodyPartSolver SpineSolver;
+    [Export] private BodyPartSolver BodyDirectionSolver;
 
     [ExportSubgroup("Left Arm")]
     [Export] private BodyPartSolver LShoulderSolver;
@@ -99,14 +101,6 @@ public partial class BodySolver : Node, IFullbodySolver
     {
         return ((ISpineSolver)SpineSolver).GetSpinePos();
     }
-    public Vector3 GetLHipsPos()
-    {
-        return ((ILHipsSolver)LHipsSolver).GetLHipsPos();
-    }
-    public Vector3 GetRHipsPos()
-    {
-        return ((IRHipsSolver)RHipsSolver).GetRHipsPos();
-    }
     public Basis GetEyesBas()
     {
         return ((IEyesSolver)EyesSolver).GetEyesBas();
@@ -123,13 +117,9 @@ public partial class BodySolver : Node, IFullbodySolver
     {
         return ((ISpineSolver)SpineSolver).GetSpineBas();
     }
-    public Basis GetLHipsBas()
+    public Basis GetBodyDirection()
     {
-        return ((ILHipsSolver)LHipsSolver).GetLHipsBas();
-    }
-    public Basis GetRHipsBas()
-    {
-        return ((IRHipsSolver)RHipsSolver).GetRHipsBas();
+        return ((IBodyDirectionSolver)BodyDirectionSolver).GetBodyDirection();
     }
 
     //left arm
@@ -185,6 +175,10 @@ public partial class BodySolver : Node, IFullbodySolver
     }
 
     //left leg
+    public Vector3 GetLHipsPos()
+    {
+        return ((ILHipsSolver)LHipsSolver).GetLHipsPos();
+    }
     public Vector3 GetLKneePos()
     {
         return ((ILKneeSolver)LKneeSolver).GetLKneePos();
@@ -196,6 +190,10 @@ public partial class BodySolver : Node, IFullbodySolver
     public Vector3 GetLToePos()
     {
         return ((ILToeSolver)LToeSolver).GetLToePos();
+    }
+    public Basis GetLHipsBas()
+    {
+        return ((ILHipsSolver)LHipsSolver).GetLHipsBas();
     }
     public Basis GetLKneeBas()
     {
@@ -211,6 +209,10 @@ public partial class BodySolver : Node, IFullbodySolver
     }
 
     //right leg
+    public Vector3 GetRHipsPos()
+    {
+        return ((IRHipsSolver)RHipsSolver).GetRHipsPos();
+    }
     public Vector3 GetRKneePos()
     {
         return ((IRKneeSolver)RKneeSolver).GetRKneePos();
@@ -222,6 +224,10 @@ public partial class BodySolver : Node, IFullbodySolver
     public Vector3 GetRToePos()
     {
         return ((IRToeSolver)RToeSolver).GetRToePos();
+    }
+    public Basis GetRHipsBas()
+    {
+        return ((IRHipsSolver)RHipsSolver).GetRHipsBas();
     }
     public Basis GetRKneeBas()
     {
