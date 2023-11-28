@@ -86,24 +86,26 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Basis neckBendBasis = new Basis(Vector3.Right, neckBendAngle);
 
 
+        //calculate the final position and basis of the chest
         Basis chestBasisOffset = neckBendBasis;
         _ChestBas = Basis.LookingAt(Vector3.Up, bodyForward) * chestBasisOffset;
         _ChestPos = neckPos + (_ChestBas * _ChestNeckOffset);
     }
 
-    //TODO this needs to make more sense, perhaps adding a IBodyForward interface now could be a good idea
-    //solves for the spine's position and basis
     private void SolveSpine(BodySolver Solver)
     {
         //get the chest's position and basis
         Vector3 chestPos = Solver.GetChestPos();
         Basis chestBas = Solver.GetChestBas();
 
-        _SpinePos = chestPos + _SpineChestOffset;
-
         Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
         Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
-        _SpineBas = new Basis(bodyRight, Vector3.Up, bodyForward);
+
+
+        //calculate the final position and basis of the spine
+        Basis spineBasisOffset = Basis.Identity;
+        _SpineBas = Basis.LookingAt(Vector3.Up, bodyForward) * spineBasisOffset;
+        _SpinePos = chestPos + (_SpineBas * _SpineChestOffset);
     }
 
 
