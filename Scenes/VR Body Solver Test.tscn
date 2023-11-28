@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://bulgsfrhhi0dk"]
+[gd_scene load_steps=9 format=3 uid="uid://bulgsfrhhi0dk"]
 
-[ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_wk18c"]
 [ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
 [ext_resource type="PackedScene" uid="uid://c8ccdoo0nk1uy" path="res://addons/Godot-VR-Body-Solver/Scenes/SkeletalAvatar.tscn" id="4_156kh"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="4_seuei"]
@@ -28,7 +27,6 @@ material = SubResource("StandardMaterial3D_jyx43")
 size = Vector2(10, 10)
 
 [node name="VR Body Solver Test" type="Node3D"]
-script = ExtResource("1_wk18c")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_go160")

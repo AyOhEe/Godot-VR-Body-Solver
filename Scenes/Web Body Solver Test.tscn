@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://cunqg4p4pkvk4"]
+[gd_scene load_steps=9 format=3 uid="uid://cunqg4p4pkvk4"]
 
-[ext_resource type="Script" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/OpenXR.cs" id="1_ltre2"]
 [ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="2_hnekb"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="3_yxyon"]
 [ext_resource type="PackedScene" uid="uid://d27vbv2ow18is" path="res://addons/Godot-VR-Body-Solver/Scenes/WebBodySolver.tscn" id="4_oqfgt"]
@@ -28,7 +27,6 @@ material = SubResource("StandardMaterial3D_uuoaf")
 size = Vector2(10, 10)
 
 [node name="Web Body Solver Test" type="Node3D"]
-script = ExtResource("1_ltre2")
 
 [node name="CameraRig" parent="." instance=ExtResource("2_hnekb")]
 
