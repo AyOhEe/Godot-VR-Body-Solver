@@ -74,8 +74,10 @@ script = ExtResource("7_gkkml")
 Lefthanded = true
 ArmLength = 0.26
 ForearmLength = 0.26
+_HintOffset = Vector3(0, -0.3, 0.1)
 
 [node name="RElbowSolver" type="Node" parent="Solvers" index="5"]
 script = ExtResource("7_gkkml")
 ArmLength = 0.26
 ForearmLength = 0.26
+_HintOffset = Vector3(0, -0.3, 0.1)

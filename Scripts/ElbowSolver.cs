@@ -10,6 +10,8 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     [Export] public float ArmLength;
     [Export] public float ForearmLength;
 
+    [Export] private Vector3 _HintOffset;
+
 
     private Vector3 _ExternalHint;
 
@@ -91,7 +93,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         //TODO this sucks
         Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
         Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
-        Vector3 bodySideVector = Lefthanded ? Vector3.Left : Vector3.Right;
+        Vector3 bodySideVector = (Lefthanded ? Vector3.Left : Vector3.Right) + _HintOffset;
         return (bodyOrientation * bodySideVector) + ((wristPos + shoulderPos) / 2);
     }
     //calculates the direction the player's body is facing
