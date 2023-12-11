@@ -53,7 +53,7 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Vector3 bodyRight = Solver.GetEyesBas() * Vector3.Right;
         bodyRight.Y = 0;
         bodyRight = bodyRight.Normalized();
-        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
+        Vector3 bodyForward = Vector3.Up.Cross(bodyRight).Normalized();
 
         _BodyDirection = Basis.LookingAt(bodyForward, Vector3.Up);
     }
