@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bulgsfrhhi0dk"]
+[gd_scene load_steps=11 format=3 uid="uid://bulgsfrhhi0dk"]
 
 [ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
 [ext_resource type="PackedScene" uid="uid://c8ccdoo0nk1uy" path="res://addons/Godot-VR-Body-Solver/Scenes/SkeletalAvatar.tscn" id="4_156kh"]
+[ext_resource type="PackedScene" uid="uid://b3elqexfi5rb0" path="res://addons/Godot-VR-UI/scenes/ui_panel.tscn" id="4_kkn4d"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="4_seuei"]
+[ext_resource type="PackedScene" uid="uid://j8qpu2c68gyt" path="res://addons/Godot-VR-Measurements/demo/MeasurementsUI.tscn" id="5_iy23c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qd38j"]
 sky_top_color = Color(0.298039, 0.407843, 0.54902, 1)
@@ -71,6 +73,11 @@ Solver = NodePath("../BodySolver")
 [node name="SkeletalAvatar Left view" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
 Solver = NodePath("../BodySolver")
+
+[node name="ui_panel" parent="." instance=ExtResource("4_kkn4d")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.414, 1.5, -1.414)
+UIScene = ExtResource("5_iy23c")
+PanelSize = Vector2(1, 2)
 
 [editable path="SkeletalAvatar"]
 [editable path="SkeletalAvatar/Eyes"]
