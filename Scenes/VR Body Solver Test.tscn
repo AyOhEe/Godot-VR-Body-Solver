@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bulgsfrhhi0dk"]
+[gd_scene load_steps=12 format=3 uid="uid://bulgsfrhhi0dk"]
 
-[ext_resource type="PackedScene" uid="uid://cyb2l1vcms8n0" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/CameraRig.tscn" id="3_qxvj2"]
+[ext_resource type="PackedScene" uid="uid://dod2lkyk6cwv8" path="res://addons/Godot-VR-UI/scenes/UICameraRig.tscn" id="1_lh42y"]
+[ext_resource type="PackedScene" uid="uid://ta178svgkj7b" path="res://addons/Godot-Extras/Axis Helper/Axis Helper.tscn" id="2_57xrs"]
 [ext_resource type="PackedScene" uid="uid://c8ccdoo0nk1uy" path="res://addons/Godot-VR-Body-Solver/Scenes/SkeletalAvatar.tscn" id="4_156kh"]
 [ext_resource type="PackedScene" uid="uid://b3elqexfi5rb0" path="res://addons/Godot-VR-UI/scenes/ui_panel.tscn" id="4_kkn4d"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="4_seuei"]
@@ -37,13 +38,21 @@ environment = SubResource("Environment_go160")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CameraRig" parent="." instance=ExtResource("3_qxvj2")]
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_538nq")
 
+[node name="UICameraRig" parent="." instance=ExtResource("1_lh42y")]
+
+[node name="UIPointer" parent="UICameraRig/LeftAim" index="0"]
+UseReticle = true
+Reticle = ExtResource("2_57xrs")
+
+[node name="UIPointer" parent="UICameraRig/RightAim" index="0"]
+UseReticle = true
+Reticle = ExtResource("2_57xrs")
+
 [node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-CameraRig = NodePath("../CameraRig")
+CameraRig = NodePath("../UICameraRig")
 
 [node name="SkeletalAvatar" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 Solver = NodePath("../BodySolver")
@@ -74,11 +83,13 @@ Solver = NodePath("../BodySolver")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
 Solver = NodePath("../BodySolver")
 
-[node name="ui_panel" parent="." instance=ExtResource("4_kkn4d")]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.414, 1.5, -1.414)
+[node name="MeasurementsPanel" parent="." instance=ExtResource("4_kkn4d")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.414, 1.1166, -1.414)
 UIScene = ExtResource("5_iy23c")
-PanelSize = Vector2(1, 2)
+PanelSize = Vector2(1, 1.75)
+ResolutionScale = 512
 
+[editable path="UICameraRig"]
 [editable path="SkeletalAvatar"]
 [editable path="SkeletalAvatar/Eyes"]
 [editable path="SkeletalAvatar/Neck"]
