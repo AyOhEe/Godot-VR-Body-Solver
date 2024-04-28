@@ -14,10 +14,11 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 	//the offset between the neck and the eyes, relative to the eyes' position and basis
 	[Export] private Vector3 _NeckEyesOffset;
     [Export] private Vector3 _ChestNeckOffset;
-    [Export] private Vector3 _SpineChestOffset;
+    [Export] private Vector3 _SpineChestDirection;
 
     [ExportCategory("Neck Bend settings")]
     [Export] private Curve EyeAngleNeckBend;
+    [Export] private Curve EyeAngleChestBend;
 
     //the direction which the body is facing expressed as a basis
     private Basis _BodyDirection;
@@ -77,10 +78,11 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Vector3 neckPos = Solver.GetNeckPos();
         Basis neckBas = Solver.GetNeckBas();
 
+        //TODO make into separate function?
         //calculate the signed eye angle and neck bend
         Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
         Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
-        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Back, bodyRight);
+        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Forward, bodyRight);
         float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
         float neckBendAngle = EyeAngleNeckBend.Sample(eyeAngle01);
         Basis neckBendBasis = new Basis(Vector3.Right, neckBendAngle);
@@ -98,14 +100,21 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
         Vector3 chestPos = Solver.GetChestPos();
         Basis chestBas = Solver.GetChestBas();
 
+        //TODO make into separate function?
+        //calculate the signed eye angle and chest bend
         Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
         Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
+        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Forward, bodyRight);
+        float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
+        float chestBendAngle = EyeAngleChestBend.Sample(eyeAngle01);
+        Basis chestBendBasis = new Basis(Vector3.Right, chestBendAngle);
 
 
         //calculate the final position and basis of the spine
-        Basis spineBasisOffset = Basis.Identity;
+        Basis spineBasisOffset = chestBendBasis;
+        float length = GetTree().Root.GetNode<MeasurementsAutoload>("VRUserMeasurements").Spine * 0.5f;
         _SpineBas = Basis.LookingAt(Vector3.Up, bodyForward) * spineBasisOffset;
-        _SpinePos = chestPos + (_SpineBas * _SpineChestOffset);
+        _SpinePos = chestPos + (_SpineBas * _SpineChestDirection.Normalized() * length);
     }
 
 
