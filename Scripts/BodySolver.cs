@@ -28,7 +28,7 @@ interface IFullbodySolver :
     IRToeSolver
 { }
 
-public partial class BodySolver : Node, IFullbodySolver
+public partial class BodySolver : Node3D, IFullbodySolver
 {
     //The CameraRig this BodySolver will solve for
     [Export] public CameraRig CameraRig;

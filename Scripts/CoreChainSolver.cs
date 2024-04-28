@@ -18,7 +18,11 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
     [ExportCategory("Neck Bend settings")]
     [Export] private Curve EyeAngleNeckBend;
+    [Export] private Curve CrouchPercentageNeckBend;
+
+    [ExportCategory("Chest Bend settings")]
     [Export] private Curve EyeAngleChestBend;
+    [Export] private Curve CrouchPercentageChestBend;
 
     //the direction which the body is facing expressed as a basis
     private Basis _BodyDirection;
@@ -74,49 +78,65 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     //solves for the chest's position and basis
     private void SolveChest(BodySolver Solver)
     {
-        //get the neck's position and basis
         Vector3 neckPos = Solver.GetNeckPos();
         Basis neckBas = Solver.GetNeckBas();
 
-        //TODO make into separate function?
-        //calculate the signed eye angle and neck bend
         Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
-        Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
-        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Forward, bodyRight);
-        float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
-        float neckBendAngle = EyeAngleNeckBend.Sample(eyeAngle01);
-        Basis neckBendBasis = new Basis(Vector3.Right, neckBendAngle);
+        Basis neckEyesBendBasis = CalculateEyeBend(Solver, EyeAngleNeckBend);
+        Basis neckCrouchBendbasis = CalculateCrouchBend(Solver, CrouchPercentageNeckBend);
 
 
         //calculate the final position and basis of the chest
-        Basis chestBasisOffset = neckBendBasis;
+        Basis chestBasisOffset = neckEyesBendBasis * neckCrouchBendbasis;
         _ChestBas = Basis.LookingAt(Vector3.Up, bodyForward) * chestBasisOffset;
         _ChestPos = neckPos + (_ChestBas * _ChestNeckOffset);
     }
 
     private void SolveSpine(BodySolver Solver)
     {
-        //get the chest's position and basis
         Vector3 chestPos = Solver.GetChestPos();
         Basis chestBas = Solver.GetChestBas();
 
-        //TODO make into separate function?
-        //calculate the signed eye angle and chest bend
         Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
-        Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
-        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Forward, bodyRight);
-        float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
-        float chestBendAngle = EyeAngleChestBend.Sample(eyeAngle01);
-        Basis chestBendBasis = new Basis(Vector3.Right, chestBendAngle);
+        Basis chestEyesBendBasis = CalculateEyeBend(Solver, EyeAngleChestBend);
+        Basis chestCrouchBendBasis = CalculateCrouchBend(Solver, CrouchPercentageChestBend);
 
 
         //calculate the final position and basis of the spine
-        Basis spineBasisOffset = chestBendBasis;
+        Basis spineBasisOffset = chestEyesBendBasis * chestCrouchBendBasis;
         float length = GetTree().Root.GetNode<MeasurementsAutoload>("VRUserMeasurements").Spine * 0.5f;
         _SpineBas = Basis.LookingAt(Vector3.Up, bodyForward) * spineBasisOffset;
         _SpinePos = chestPos + (_SpineBas * _SpineChestDirection.Normalized() * length);
     }
 
+    //calculates the rotation of a body part based on the rotation of the eyes
+    public Basis CalculateEyeBend(BodySolver Solver, Curve BendCurve)
+    {
+        Vector3 bodyForward = Solver.GetBodyDirection() * Vector3.Forward;
+        Vector3 bodyRight = Solver.GetBodyDirection() * Vector3.Right;
+        float eyeAngle = bodyForward.SignedAngleTo(Solver.GetEyesBas() * Vector3.Forward, bodyRight);
+        float eyeAngle01 = Mathf.Remap(eyeAngle, -Mathf.Pi, Mathf.Pi, 0, 1);
+        float neckBendAngle = BendCurve.Sample(eyeAngle01);
+        Basis eyeBendBasis = new Basis(Vector3.Right, neckBendAngle);
+
+        return eyeBendBasis;
+    }
+    //calculates the rotation of a body part based on how crouched the user is
+    public Basis CalculateCrouchBend(BodySolver Solver, Curve BendCurve)
+    {
+        float crouch = CalculateCrouchPercentage(Solver);
+        float crouchBendAngle = BendCurve.Sample(crouch);
+        return new Basis(Vector3.Right, crouchBendAngle);
+    }
+    //calculates how crouched the user is
+    public float CalculateCrouchPercentage(BodySolver Solver)
+    {
+        MeasurementsAutoload measurements = GetTree().Root.GetNode<MeasurementsAutoload>("VRUserMeasurements");
+        float currentHeight = (Solver.GetEyesPos().Y + measurements.TrackedOffset) + 0.08f;
+        float fullHeight = measurements.PlayerHeight;
+
+        return Mathf.Clamp(currentHeight / fullHeight, 0, 1);
+    }
 
     #region Getters
     public Vector3 GetNeckPos()

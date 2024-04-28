@@ -23,8 +23,8 @@ public partial class CameraRigSolver : BodyPartSolver, IEyesSolver, ILWristSolve
         CameraRig CameraRig = Solver.CameraRig;
 
         //store the position and basis of the camera relative to the camera rig
-        _EyesPos = CameraRig.Camera.Position;
-        _EyesBas = CameraRig.Camera.Basis;
+        _EyesPos = CameraRig.ToLocal(CameraRig.Camera.GlobalPosition);
+        _EyesBas = (CameraRig.Transform.Inverse() * CameraRig.Camera.GlobalTransform).Orthonormalized().Basis;
 
         //store the position and basis of the left wrist relative to the camera rig
         _LWristPos = CameraRig.ToLocal(CameraRig.LeftWrist.GlobalPosition);
