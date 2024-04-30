@@ -104,7 +104,7 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
 
         //calculate the final position and basis of the spine
         Basis spineBasisOffset = chestEyesBendBasis * chestCrouchBendBasis;
-        float length = MeasurementsAutoload.Spine * 0.5f;
+        float length = VRUserMeasurements.Spine * 0.5f;
         _SpineBas = Basis.LookingAt(Vector3.Up, bodyForward) * spineBasisOffset;
         _SpinePos = chestPos + (_SpineBas * _SpineChestDirection.Normalized() * length);
     }
@@ -131,8 +131,8 @@ public partial class CoreChainSolver : BodyPartSolver, ICoreChainSolver
     //calculates how crouched the user is
     public float CalculateCrouchPercentage(BodySolver Solver)
     {
-        float currentHeight = (Solver.GetEyesPos().Y + MeasurementsAutoload.TrackedOffset) + 0.08f;
-        float fullHeight = MeasurementsAutoload.PlayerHeight;
+        float currentHeight = (Solver.GetEyesPos().Y + VRUserMeasurements.TrackedOffset) + 0.08f;
+        float fullHeight = VRUserMeasurements.PlayerHeight;
 
         return Mathf.Clamp(currentHeight / fullHeight, 0, 1);
     }

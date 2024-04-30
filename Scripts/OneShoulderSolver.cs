@@ -19,7 +19,7 @@ public partial class OneShoulderSolver : Resource
     {
         Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
         Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
-        ShoulderPos = Solver.GetChestPos() + (bodyOrientation * _ShoulderDirection * MeasurementsAutoload.Clavicle);
+        ShoulderPos = Solver.GetChestPos() + (bodyOrientation * _ShoulderDirection * VRUserMeasurements.Clavicle);
         ShoulderBas = bodyOrientation;
     }
 
