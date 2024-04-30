@@ -34,13 +34,11 @@ point_count = 3
 resource_local_to_scene = true
 script = ExtResource("6_iow8h")
 _ShoulderDirection = Vector3(-0.13, -0.04, 0)
-_ShoulderLength = 0.17
 
 [sub_resource type="Resource" id="Resource_7ielf"]
 resource_local_to_scene = true
 script = ExtResource("6_iow8h")
 _ShoulderDirection = Vector3(0.13, -0.04, 0)
-_ShoulderLength = 0.17
 
 [node name="BodySolver" node_paths=PackedStringArray("_BodyPartSolvers", "EyesSolver", "NeckSolver", "ChestSolver", "SpineSolver", "BodyDirectionSolver", "LShoulderSolver", "LElbowSolver", "LWristSolver", "RShoulderSolver", "RElbowSolver", "RWristSolver", "LHipsSolver", "LKneeSolver", "LAnkleSolver", "LToeSolver", "RHipsSolver", "RKneeSolver", "RAnkleSolver", "RToeSolver") instance=ExtResource("1_sq6v5")]
 _BodyPartSolvers = [NodePath("Solvers/CameraRigSolver"), NodePath("Solvers/CoreChainSolver"), NodePath("Solvers/ShouldersSolver"), NodePath("Solvers/LElbowSolver"), NodePath("Solvers/RElbowSolver")]

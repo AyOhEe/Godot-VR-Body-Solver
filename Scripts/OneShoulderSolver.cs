@@ -4,7 +4,6 @@ using Godot;
 public partial class OneShoulderSolver : Resource
 {
     [Export] private Vector3 _ShoulderDirection = Vector3.Left;
-    [Export] private float _ShoulderLength = 0.17f; //TODO move this to body definition
 
     public Vector3 ShoulderPos { get; private set; } = Vector3.Zero;
     public Basis ShoulderBas { get; private set; } = Basis.Identity;
@@ -20,7 +19,7 @@ public partial class OneShoulderSolver : Resource
     {
         Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
         Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
-        ShoulderPos = Solver.GetChestPos() + (bodyOrientation * _ShoulderDirection * _ShoulderLength);
+        ShoulderPos = Solver.GetChestPos() + (bodyOrientation * _ShoulderDirection * MeasurementsAutoload.Clavicle);
         ShoulderBas = bodyOrientation;
     }
 
