@@ -7,9 +7,6 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     [Export] public bool UseExternalHint = false;
     [Export] public bool Lefthanded = false;
 
-    [Export] public float ArmLength;
-    [Export] public float ForearmLength;
-
     [Export] private Vector3 _HintOffset;
 
 
@@ -35,11 +32,11 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         //from there, we calculate a point - because of the hint, there's only one
         //valid solution
         float shoulderWristDist = wristPos.DistanceTo(shoulderPos);
-        float shoulderAngle = CosineLawAngle(ArmLength, shoulderWristDist, ForearmLength, out _);
+        float shoulderAngle = CosineLawAngle(VRUserMeasurements.Arm, shoulderWristDist, VRUserMeasurements.Forearm, out _);
         Vector3 armPlaneNormal = CalculateArmPlaneNormal(wristPos, shoulderPos, Hint);
         Vector3 elbowDir = (wristPos - shoulderPos).Normalized().Rotated(armPlaneNormal, shoulderAngle);
 
-        _ElbowPos = shoulderPos + (elbowDir * ArmLength);
+        _ElbowPos = shoulderPos + (elbowDir * VRUserMeasurements.Arm);
         _ElbowBas = Basis.LookingAt(wristPos - _ElbowPos);
     }
     private Vector3 CalculateArmPlaneNormal(Vector3 Wrist, Vector3 Shoulder, Vector3 Hint)
