@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bulgsfrhhi0dk"]
+[gd_scene load_steps=12 format=3 uid="uid://bulgsfrhhi0dk"]
 
-[ext_resource type="PackedScene" uid="uid://dod2lkyk6cwv8" path="res://addons/Godot-VR-UI/scenes/UICameraRig.tscn" id="1_lh42y"]
-[ext_resource type="PackedScene" uid="uid://c6facwpg7hde7" path="res://addons/Godot-OpenXR-Startup/OpenXR Startup/XRSubViewport.tscn" id="1_n6x0n"]
 [ext_resource type="PackedScene" uid="uid://ta178svgkj7b" path="res://addons/Godot-Extras/Axis Helper/Axis Helper.tscn" id="2_57xrs"]
+[ext_resource type="PackedScene" uid="uid://kn5xfli5tkhx" path="res://addons/Godot-VR-Measurements/scenes/UICorrectedCameraRig.tscn" id="2_ts4w7"]
 [ext_resource type="PackedScene" uid="uid://c8ccdoo0nk1uy" path="res://addons/Godot-VR-Body-Solver/Scenes/SkeletalAvatar.tscn" id="4_156kh"]
 [ext_resource type="PackedScene" uid="uid://b3elqexfi5rb0" path="res://addons/Godot-VR-UI/scenes/ui_panel.tscn" id="4_kkn4d"]
 [ext_resource type="PackedScene" uid="uid://bo3f3lg1xqgqb" path="res://addons/Godot-VR-Body-Solver/Scenes/PreparedBodySolver.tscn" id="4_seuei"]
@@ -39,23 +38,23 @@ environment = SubResource("Environment_go160")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="UICorrectedCameraRig" parent="SubViewport" instance=ExtResource("2_ts4w7")]
+
+[node name="UIPointer" parent="SubViewport/UICorrectedCameraRig/LeftAim" index="0"]
+UseReticle = true
+Reticle = ExtResource("2_57xrs")
+
+[node name="UIPointer" parent="SubViewport/UICorrectedCameraRig/RightAim" index="0"]
+UseReticle = true
+Reticle = ExtResource("2_57xrs")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_538nq")
 
-[node name="XRSubViewport" parent="." instance=ExtResource("1_n6x0n")]
-
-[node name="UICameraRig" parent="XRSubViewport" instance=ExtResource("1_lh42y")]
-
-[node name="UIPointer" parent="XRSubViewport/UICameraRig/LeftAim" index="0"]
-UseReticle = true
-Reticle = ExtResource("2_57xrs")
-
-[node name="UIPointer" parent="XRSubViewport/UICameraRig/RightAim" index="0"]
-UseReticle = true
-Reticle = ExtResource("2_57xrs")
-
 [node name="BodySolver" parent="." node_paths=PackedStringArray("CameraRig") instance=ExtResource("4_seuei")]
-CameraRig = NodePath("../XRSubViewport/UICameraRig")
+CameraRig = NodePath("../SubViewport/UICorrectedCameraRig")
 
 [node name="SkeletalAvatar" parent="." node_paths=PackedStringArray("Solver") instance=ExtResource("4_156kh")]
 Solver = NodePath("../BodySolver")
@@ -95,7 +94,7 @@ ResolutionScale = 512
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.875911, 0.482472, 0, -0.482472, 0.875911, 0, 2.63622, 2.05234)
 
-[editable path="XRSubViewport/UICameraRig"]
+[editable path="SubViewport/UICorrectedCameraRig"]
 [editable path="SkeletalAvatar"]
 [editable path="SkeletalAvatar/Eyes"]
 [editable path="SkeletalAvatar/Neck"]

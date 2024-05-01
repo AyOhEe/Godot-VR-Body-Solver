@@ -15,26 +15,16 @@ public partial class OneShoulderSolver : Resource
         _ShoulderDirection = _ShoulderDirection.Normalized();
     }
 
-    public void Update(BodySolver Solver, Vector3 WristPos, Basis WristBas)
+    //prepares the basic shoulder position for use with elbow estimation
+    public void PreUpdate(BodySolver Solver)
     {
-        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
-        Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
-        ShoulderPos = Solver.GetChestPos() + (bodyOrientation * _ShoulderDirection * VRUserMeasurements.Clavicle);
-        ShoulderBas = bodyOrientation;
+        ShoulderPos = Solver.GetChestPos() + (Solver.GetBodyDirection() * _ShoulderDirection * VRUserMeasurements.Clavicle);
+        ShoulderBas = Solver.GetBodyDirection();
     }
 
-    //calculates the direction the player's body is facing
-    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 bodyRight)
+    //calculates the actual shoulder position
+    public void Update(BodySolver Solver, Transform3D Wrist, Transform3D Elbow)
     {
-        //get a vector3 of length 1 in the direction of the eyes' right vector
-        //the right vector doesn't change if the player looks beyond straight up, 
-        //and usually stays on the correct side of straight up/down to be a good
-        //indicator of the body's forward direction
-        bodyRight = Solver.GetEyesBas() * Vector3.Right;
-        bodyRight.Y = 0;
-        bodyRight = bodyRight.Normalized();
-        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
 
-        return bodyForward;
     }
 }

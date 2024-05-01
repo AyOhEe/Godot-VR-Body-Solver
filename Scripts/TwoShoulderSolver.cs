@@ -7,6 +7,8 @@ public partial class TwoShoulderSolver : BodyPartSolver, ILShoulderSolver, IRSho
 {
     [Export] private OneShoulderSolver _LShoulderSolver;
     [Export] private OneShoulderSolver _RShoulderSolver;
+    [Export] private BodyPartSolver _LElbowSolver;
+    [Export] private BodyPartSolver _RElbowSolver;
 
     public override void _Ready()
     {
@@ -16,8 +18,23 @@ public partial class TwoShoulderSolver : BodyPartSolver, ILShoulderSolver, IRSho
 
     public override void Update(BodySolver Solver)
     {
-        _LShoulderSolver.Update(Solver, Solver.GetLWristPos(), Solver.GetLWristBas());
-        _RShoulderSolver.Update(Solver, Solver.GetRWristPos(), Solver.GetRWristBas());
+        //prepare the elbow estimate
+        _LShoulderSolver.PreUpdate(Solver);
+        _RShoulderSolver.PreUpdate(Solver);
+        _LElbowSolver.Update(Solver);
+        _RElbowSolver.Update(Solver);
+
+        //calculate the true shoulder position using the elbow estimate
+        Transform3D LWrist = new Transform3D(Solver.GetLWristBas(), Solver.GetLWristPos());
+        Transform3D LElbow = new Transform3D(Solver.GetLElbowBas(), Solver.GetLElbowPos());
+
+        Transform3D RWrist = new Transform3D(Solver.GetRWristBas(), Solver.GetRWristPos());
+        Transform3D RElbow = new Transform3D(Solver.GetRElbowBas(), Solver.GetRElbowPos());
+
+        _LShoulderSolver.Update(Solver, LWrist, LElbow);
+        _RShoulderSolver.Update(Solver, RWrist, RElbow);
+
+        //true elbow position will be calculated later by the body solver
     }
 
 

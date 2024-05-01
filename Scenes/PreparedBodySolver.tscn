@@ -47,11 +47,11 @@ NeckSolver = NodePath("Solvers/CoreChainSolver")
 ChestSolver = NodePath("Solvers/CoreChainSolver")
 SpineSolver = NodePath("Solvers/CoreChainSolver")
 BodyDirectionSolver = NodePath("Solvers/CoreChainSolver")
-LShoulderSolver = NodePath("Solvers/DefaultSolver")
-LElbowSolver = NodePath("Solvers/DefaultSolver")
+LShoulderSolver = NodePath("Solvers/ShouldersSolver")
+LElbowSolver = NodePath("Solvers/LElbowSolver")
 LWristSolver = NodePath("Solvers/CameraRigSolver")
-RShoulderSolver = NodePath("Solvers/DefaultSolver")
-RElbowSolver = NodePath("Solvers/DefaultSolver")
+RShoulderSolver = NodePath("Solvers/ShouldersSolver")
+RElbowSolver = NodePath("Solvers/RElbowSolver")
 RWristSolver = NodePath("Solvers/CameraRigSolver")
 LHipsSolver = NodePath("Solvers/DefaultSolver")
 LKneeSolver = NodePath("Solvers/DefaultSolver")
@@ -80,10 +80,12 @@ CrouchPercentageChestBend = SubResource("Curve_jteby")
 [node name="DefaultSolver" type="Node" parent="Solvers" index="2"]
 script = ExtResource("4_irwey")
 
-[node name="ShouldersSolver" type="Node" parent="Solvers" index="3"]
+[node name="ShouldersSolver" type="Node" parent="Solvers" index="3" node_paths=PackedStringArray("_LElbowSolver", "_RElbowSolver")]
 script = ExtResource("5_w50pv")
 _LShoulderSolver = SubResource("Resource_nuaqn")
 _RShoulderSolver = SubResource("Resource_7ielf")
+_LElbowSolver = NodePath("../LElbowSolver")
+_RElbowSolver = NodePath("../RElbowSolver")
 
 [node name="LElbowSolver" type="Node" parent="Solvers" index="4"]
 script = ExtResource("7_gkkml")
