@@ -1,13 +1,13 @@
 using Godot;
 using System;
-using System.Reflection.Metadata.Ecma335;
+using System.Collections.Generic;
 
 public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
 {
     [Export] public bool UseExternalHint = false;
     [Export] public bool Lefthanded = false;
 
-    [Export] private Vector3 _HintOffset;
+    [Export] private Vector3 ShoulderWristMeanHintOffset;
 
 
     private Vector3 _ExternalHint;
@@ -82,31 +82,77 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         _ExternalHint = hint;
     }
 
+    delegate Tuple<Vector3, float> HintGenerator(BodySolver Solver);
     private Vector3 CalculateHint(BodySolver Solver)
+    {
+        List<Vector3> potentialHints = new(); 
+        List<float> hintConfidences = new();
+        List<HintGenerator> hintGenerators = new(){ 
+            WristHint,
+            ShoulderWristMeanHint
+        };
+
+        foreach(HintGenerator g in hintGenerators)
+        {
+            Tuple<Vector3, float> hint = g(Solver);
+            potentialHints.Add(hint.Item1);
+            hintConfidences.Add(hint.Item2);
+        }
+
+        return WeightedMeanV3(potentialHints, hintConfidences);
+    }
+
+    //https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
+    private Vector3 WeightedMeanV3(List<Vector3> points, List<float> weights)
+    {
+        if(points.Count == 0)
+        {
+            throw new ArgumentException("Zero (0) points given to WeightedMeanV3");
+        }
+        if (weights.Count == 0)
+        {
+            throw new ArgumentException("Zero (0) weights given to WeightedMeanV3");
+        }
+        if(points.Count != weights.Count)
+        {
+            throw new ArgumentException("points.Count != weights.Count in WeightedMeanV3");
+        }
+
+
+        Vector3 result = Vector3.Zero;
+        float totalWeight = 0.0f;
+
+        for(int i = 0; i < points.Count; i++)
+        {
+            totalWeight += weights[i];
+            result += points[i] * weights[i];
+        }
+
+        return result / totalWeight;
+    }
+
+
+    #region Hint Generators
+    private Tuple<Vector3, float> WristHint(BodySolver Solver)
+    {
+        GetWristPose(Solver, out Vector3 wristPos, out Basis wristBas);
+        Vector3 hint = wristPos + (wristBas * Vector3.Back * VRUserMeasurements.Forearm);
+
+        //TODO confidence estimation
+        return new(hint, 2);
+    }
+
+    private Tuple<Vector3, float> ShoulderWristMeanHint(BodySolver Solver)
     {
         GetWristPose(Solver, out Vector3 wristPos, out Basis wristBas);
         GetShoulderPose(Solver, out Vector3 shoulderPos, out Basis shoulderBas);
+        Vector3 hint = (wristPos + shoulderPos) / 2;
+        hint += Solver.GetBodyDirection() * ShoulderWristMeanHintOffset;
 
-        //TODO this sucks
-        Vector3 bodyForward = CalculateBodyForward(Solver, out Vector3 bodyRight);
-        Basis bodyOrientation = new Basis(bodyRight, Vector3.Up, bodyForward);
-        Vector3 bodySideVector = (Lefthanded ? Vector3.Left : Vector3.Right) + _HintOffset;
-        return (bodyOrientation * bodySideVector) + ((wristPos + shoulderPos) / 2);
+        //TODO confidence estimation
+        return new(hint, 1);
     }
-    //calculates the direction the player's body is facing
-    private Vector3 CalculateBodyForward(BodySolver Solver, out Vector3 bodyRight)
-    {
-        //get a vector3 of length 1 in the direction of the eyes' right vector
-        //the right vector doesn't change if the player looks beyond straight up, 
-        //and usually stays on the correct side of straight up/down to be a good
-        //indicator of the body's forward direction
-        bodyRight = Solver.GetEyesBas() * Vector3.Right;
-        bodyRight.Y = 0;
-        bodyRight = bodyRight.Normalized();
-        Vector3 bodyForward = bodyRight.Cross(Vector3.Up).Normalized();
-
-        return bodyForward;
-    }
+    #endregion
 
 
     //helper functions. handedness makes some calls ugly, but these are nice
