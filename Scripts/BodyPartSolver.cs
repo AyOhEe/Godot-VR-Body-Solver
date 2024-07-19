@@ -31,108 +31,108 @@ public abstract partial class BodyPartSolver : Node
 
 
 //central bone chain
-interface IEyesSolver
+public interface IEyesSolver
 {
     public Vector3 GetEyesPos();
     public Basis GetEyesBas();
 }
-interface INeckSolver
+public interface INeckSolver
 {
     public Vector3 GetNeckPos();
     public Basis GetNeckBas();
 }
-interface IChestSolver
+public interface IChestSolver
 {
     public Vector3 GetChestPos();
     public Basis GetChestBas();
 }
-interface ISpineSolver
+public interface ISpineSolver
 {
     public Vector3 GetSpinePos();
     public Basis GetSpineBas();
 }
-interface IBodyDirectionSolver
+public interface IBodyDirectionSolver
 {
     public Basis GetBodyDirection();
 }
 
 //shoulders
-interface ILShoulderSolver
+public interface ILShoulderSolver
 {
     public Vector3 GetLShoulderPos();
     public Basis GetLShoulderBas();
 }
-interface IRShoulderSolver
+public interface IRShoulderSolver
 {
     public Vector3 GetRShoulderPos();
     public Basis GetRShoulderBas();
 }
 //elbows
-interface ILElbowSolver
+public interface ILElbowSolver
 {
     public Vector3 GetLElbowPos();
     public Basis GetLElbowBas();
 }
-interface IRElbowSolver
+public interface IRElbowSolver
 {
     public Vector3 GetRElbowPos();
     public Basis GetRElbowBas();
 }
 //wrists
-interface ILWristSolver
+public interface ILWristSolver
 {
     public Vector3 GetLWristPos();
     public Basis GetLWristBas();
 }
-interface IRWristSolver
+public interface IRWristSolver
 {
     public Vector3 GetRWristPos();
     public Basis GetRWristBas();
 }
 
 //hips
-interface ILHipsSolver
+public interface ILHipsSolver
 {
     public Vector3 GetLHipsPos();
     public Basis GetLHipsBas();
 }
-interface IRHipsSolver
+public interface IRHipsSolver
 {
     public Vector3 GetRHipsPos();
     public Basis GetRHipsBas();
 }
 
 //knees
-interface ILKneeSolver
+public interface ILKneeSolver
 {
     public Vector3 GetLKneePos();
     public Basis GetLKneeBas();
 }
-interface IRKneeSolver
+public interface IRKneeSolver
 {
     public Vector3 GetRKneePos();
     public Basis GetRKneeBas();
 }
 
 //ankles
-interface ILAnkleSolver
+public interface ILAnkleSolver
 {
     public Vector3 GetLAnklePos();
     public Basis GetLAnkleBas();
 }
-interface IRAnkleSolver
+public interface IRAnkleSolver
 {
     public Vector3 GetRAnklePos();
     public Basis GetRAnkleBas();
 }
 
 //toes
-interface ILToeSolver
+public interface ILToeSolver
 {
     public Vector3 GetLToePos();
     public Basis GetLToeBas();
 }
-interface IRToeSolver
+public interface IRToeSolver
 {
     public Vector3 GetRToePos();
     public Basis GetRToeBas();

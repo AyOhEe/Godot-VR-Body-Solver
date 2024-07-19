@@ -2,8 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
+public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver, ILShoulderSolver, IRShoulderSolver
 {
+    [Export] public BodyPartSolver ShoulderSolver;
     [Export] public bool UseExternalHint = false;
     [Export] public bool Lefthanded = false;
 
@@ -14,6 +15,8 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
 
     private Vector3 _ElbowPos;
     private Basis _ElbowBas;
+    private Vector3 _ShoulderPos;
+    private Basis _ShoulderBas;
 
 
     public override void Update(BodySolver Solver)
@@ -21,6 +24,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         Vector3 elbowHint = GetHint(Solver);
 
         SolveElbow(Solver, elbowHint);
+        SolveShoulder();
     }
 
     private void SolveElbow(BodySolver Solver, Vector3 Hint)
@@ -49,11 +53,11 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     private float CosineLawAngle(float a, float b, float c, out bool GotNan)
     {
         float Angle = Mathf.Acos(((a * a) + (b * b) - (c * c)) / (2 * a * b));
-        if(float.IsNaN(Angle)) 
+        if (float.IsNaN(Angle))
         {
             //returning NaN causes all sorts of problems
             GotNan = true;
-            return 0; 
+            return 0;
         }
         GotNan = false;
         return Angle;
@@ -66,7 +70,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         {
             return _ExternalHint;
         }
-        else 
+        else
         {
             return CalculateHint(Solver);
         }
@@ -85,14 +89,14 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     delegate Tuple<Vector3, float> HintGenerator(BodySolver Solver);
     private Vector3 CalculateHint(BodySolver Solver)
     {
-        List<Vector3> potentialHints = new(); 
+        List<Vector3> potentialHints = new();
         List<float> hintConfidences = new();
-        List<HintGenerator> hintGenerators = new(){ 
+        List<HintGenerator> hintGenerators = new(){
             WristHint,
             ShoulderWristMeanHint
         };
 
-        foreach(HintGenerator g in hintGenerators)
+        foreach (HintGenerator g in hintGenerators)
         {
             Tuple<Vector3, float> hint = g(Solver);
             potentialHints.Add(hint.Item1);
@@ -105,7 +109,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     //https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
     private Vector3 WeightedMeanV3(List<Vector3> points, List<float> weights)
     {
-        if(points.Count == 0)
+        if (points.Count == 0)
         {
             throw new ArgumentException("Zero (0) points given to WeightedMeanV3");
         }
@@ -113,7 +117,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         {
             throw new ArgumentException("Zero (0) weights given to WeightedMeanV3");
         }
-        if(points.Count != weights.Count)
+        if (points.Count != weights.Count)
         {
             throw new ArgumentException("points.Count != weights.Count in WeightedMeanV3");
         }
@@ -122,7 +126,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         Vector3 result = Vector3.Zero;
         float totalWeight = 0.0f;
 
-        for(int i = 0; i < points.Count; i++)
+        for (int i = 0; i < points.Count; i++)
         {
             totalWeight += weights[i];
             result += points[i] * weights[i];
@@ -183,6 +187,24 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
         }
     }
 
+
+    private void SolveShoulder()
+    {
+        if (Lefthanded)
+        {
+            _ShoulderPos = ((ILShoulderSolver)ShoulderSolver).GetLShoulderPos();
+        }
+        else
+        {
+            _ShoulderPos = ((IRShoulderSolver)ShoulderSolver).GetRShoulderPos();
+        }
+        _ShoulderBas = CalculateShoulderBasis();
+    }
+    private Basis CalculateShoulderBasis()
+    {
+        return Basis.LookingAt(_ElbowPos - _ShoulderPos);
+    }
+
     #region Getters
     public Vector3 GetLElbowPos()
     {
@@ -199,6 +221,25 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver
     public Basis GetRElbowBas()
     {
         return _ElbowBas;
+    }
+
+
+    public Vector3 GetLShoulderPos()
+    {
+        return _ShoulderPos;
+    }
+    public Basis GetLShoulderBas()
+    {
+        return _ShoulderBas;
+    }
+
+    public Vector3 GetRShoulderPos()
+    {
+        return _ShoulderPos;
+    }
+    public Basis GetRShoulderBas()
+    {
+        return _ShoulderBas;
     }
     #endregion
 }

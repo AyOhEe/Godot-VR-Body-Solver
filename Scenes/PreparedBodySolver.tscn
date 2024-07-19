@@ -83,10 +83,10 @@ NeckSolver = NodePath("Solvers/CoreChainSolver")
 ChestSolver = NodePath("Solvers/CoreChainSolver")
 SpineSolver = NodePath("Solvers/CoreChainSolver")
 BodyDirectionSolver = NodePath("Solvers/CoreChainSolver")
-LShoulderSolver = NodePath("Solvers/ShouldersSolver")
+LShoulderSolver = NodePath("Solvers/LElbowSolver")
 LElbowSolver = NodePath("Solvers/LElbowSolver")
 LWristSolver = NodePath("Solvers/CameraRigSolver")
-RShoulderSolver = NodePath("Solvers/ShouldersSolver")
+RShoulderSolver = NodePath("Solvers/RElbowSolver")
 RElbowSolver = NodePath("Solvers/RElbowSolver")
 RWristSolver = NodePath("Solvers/CameraRigSolver")
 LHipsSolver = NodePath("Solvers/DefaultSolver")
@@ -123,11 +123,13 @@ _RShoulderSolver = SubResource("Resource_7ielf")
 _LElbowSolver = NodePath("../LElbowSolver")
 _RElbowSolver = NodePath("../RElbowSolver")
 
-[node name="LElbowSolver" type="Node" parent="Solvers" index="4"]
+[node name="LElbowSolver" type="Node" parent="Solvers" index="4" node_paths=PackedStringArray("ShoulderSolver")]
 script = ExtResource("7_gkkml")
+ShoulderSolver = NodePath("../ShouldersSolver")
 Lefthanded = true
 ShoulderWristMeanHintOffset = Vector3(0, -0.3, 0.1)
 
-[node name="RElbowSolver" type="Node" parent="Solvers" index="5"]
+[node name="RElbowSolver" type="Node" parent="Solvers" index="5" node_paths=PackedStringArray("ShoulderSolver")]
 script = ExtResource("7_gkkml")
+ShoulderSolver = NodePath("../ShouldersSolver")
 ShoulderWristMeanHintOffset = Vector3(0, -0.3, 0.1)
