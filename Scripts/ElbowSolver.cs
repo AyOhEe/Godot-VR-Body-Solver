@@ -38,7 +38,7 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver,
         float shoulderWristDist = wristPos.DistanceTo(shoulderPos);
         float shoulderAngle = CosineLawAngle(VRUserMeasurements.Arm, shoulderWristDist, VRUserMeasurements.Forearm, out _);
         Vector3 armPlaneNormal = CalculateArmPlaneNormal(wristPos, shoulderPos, Hint);
-        Vector3 elbowDir = (wristPos - shoulderPos).Normalized().Rotated(armPlaneNormal, shoulderAngle);
+        Vector3 elbowDir = (wristPos - shoulderPos).Normalized().Rotated(armPlaneNormal, shoulderAngle).Normalized();
 
         _ElbowPos = shoulderPos + (elbowDir * VRUserMeasurements.Arm);
         _ElbowBas = Basis.LookingAt(wristPos - _ElbowPos);
@@ -177,13 +177,13 @@ public partial class ElbowSolver : BodyPartSolver, ILElbowSolver, IRElbowSolver,
     {
         if (Lefthanded)
         {
-            shoulderPos = Solver.GetLShoulderPos();
-            shoulderBas = Solver.GetLShoulderBas();
+            shoulderPos = ((ILShoulderSolver)ShoulderSolver).GetLShoulderPos();
+            shoulderBas = ((ILShoulderSolver)ShoulderSolver).GetLShoulderBas();
         }
         else
         {
-            shoulderPos = Solver.GetRShoulderPos();
-            shoulderBas = Solver.GetRShoulderBas();
+            shoulderPos = ((IRShoulderSolver)ShoulderSolver).GetRShoulderPos();
+            shoulderBas = ((IRShoulderSolver)ShoulderSolver).GetRShoulderBas();
         }
     }
 
