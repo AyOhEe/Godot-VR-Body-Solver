@@ -1,48 +1,42 @@
 [gd_scene load_steps=18 format=3 uid="uid://bo3f3lg1xqgqb"]
 
 [ext_resource type="PackedScene" uid="uid://dyjaj2osk3uy1" path="res://addons/Godot-VR-Body-Solver/Scenes/BaseBodySolver.tscn" id="1_sq6v5"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CoreChainSolver.cs" id="3_o4grb"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/DefaultSolver.cs" id="4_irwey"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="5_iyhxi"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/TwoShoulderSolver.cs" id="5_w50pv"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/OneShoulderSolver.cs" id="6_iow8h"]
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/ElbowSolver.cs" id="7_gkkml"]
+[ext_resource type="Script" uid="uid://dckam8olauqo0" path="res://addons/Godot-VR-Body-Solver/Scripts/CoreChainSolver.cs" id="3_o4grb"]
+[ext_resource type="Script" uid="uid://cwq1hudhwxaef" path="res://addons/Godot-VR-Body-Solver/Scripts/DefaultSolver.cs" id="4_irwey"]
+[ext_resource type="Script" uid="uid://bmphvio3e5jhj" path="res://addons/Godot-VR-Body-Solver/Scripts/CameraRigSolver.cs" id="5_iyhxi"]
+[ext_resource type="Script" uid="uid://2sxw0fy5q6mk" path="res://addons/Godot-VR-Body-Solver/Scripts/TwoShoulderSolver.cs" id="5_w50pv"]
+[ext_resource type="Script" uid="uid://bh56a23yi7vpp" path="res://addons/Godot-VR-Body-Solver/Scripts/OneShoulderSolver.cs" id="6_iow8h"]
+[ext_resource type="Script" uid="uid://cofirr1ch0rql" path="res://addons/Godot-VR-Body-Solver/Scripts/ElbowSolver.cs" id="7_gkkml"]
 
 [sub_resource type="Curve" id="Curve_vs4rt"]
 resource_local_to_scene = true
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.25, 0.6), 0.0, -6.0, 0, 1, Vector2(0.3, 0.3), -6.0, -3.0, 1, 1, Vector2(0.4, 0), -3.0, 0.0, 1, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_fqhss"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.6, 0.5), 0.0, -1.42857, 0, 1, Vector2(0.95, 0), -1.42857, 0.0, 1, 1, Vector2(1, 0), 0.0, 0.0, 1, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_u7cod"]
 resource_local_to_scene = true
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.25, 0.2), 0.0, -1.0, 0, 1, Vector2(0.3, 0.15), -1.0, -1.5, 1, 1, Vector2(0.4, 0), -1.5, 0.0, 1, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_jteby"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.5, 0.8), 0.0, -1.77778, 0, 1, Vector2(0.95, 0), -1.77778, 0.0, 1, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_l0amb"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0, -0.25), 0.0, 0.0, 0, 0, Vector2(0.3, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(0.875, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="Curve" id="Curve_7v5ma"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.09, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 1.75, 0, 0, Vector2(1, 0.7), 1.75, 0.0, 0, 0]
 point_count = 3
 
@@ -56,14 +50,12 @@ ZDeltaRange = Vector2(-1, 1)
 ThetaYFromZ = SubResource("Curve_l0amb")
 
 [sub_resource type="Curve" id="Curve_bpxd2"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0, Vector2(0.3, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(0.875, 0), 0.0, 0.0, 0, 0, Vector2(1, -0.3), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="Curve" id="Curve_uxugj"]
-min_value = -3.14
-max_value = 3.14
+_limits = [-3.14, 3.14, 0.0, 1.0]
 _data = [Vector2(0.09, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, -1.75, 0, 0, Vector2(1, -0.7), -1.75, 0.0, 0, 0]
 point_count = 3
 

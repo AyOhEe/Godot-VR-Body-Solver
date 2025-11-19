@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c8ccdoo0nk1uy"]
 
-[ext_resource type="Script" path="res://addons/Godot-VR-Body-Solver/Scripts/SkeletalAvatar.cs" id="1_s1q0k"]
+[ext_resource type="Script" uid="uid://dracthbq1x6js" path="res://addons/Godot-VR-Body-Solver/Scripts/SkeletalAvatar.cs" id="1_s1q0k"]
 [ext_resource type="PackedScene" uid="uid://cn6x8mcfliu3v" path="res://addons/Godot-VR-Body-Solver/Scenes/TrackedPoint.tscn" id="2_sn33r"]
 [ext_resource type="Material" uid="uid://ctcqypag87xy2" path="res://addons/Godot-VR-Body-Solver/Materials/Central Section.tres" id="3_5rtq7"]
 [ext_resource type="Material" uid="uid://d22oe22xs5ra4" path="res://addons/Godot-VR-Body-Solver/Materials/Left Side.tres" id="4_mtobv"]
